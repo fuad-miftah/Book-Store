@@ -4,7 +4,7 @@ import { logger } from "../userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
