@@ -1,19 +1,38 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logger } from "../userSlice";
-
+import { useForm } from "react-hook-form";
 const Login = () => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email && password) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (email && password) {
+  //     dispatch(logger);
+  //   } else {
+  //     console.log("enter valid input");
+  //   }
+  // };
+  const { users } = useSelector((state) => state.user);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    const foundUser = users.find(
+      (user) => user.email === data.email && user.password === data.password
+    );
+    if (foundUser) {
       dispatch(logger);
     } else {
-      console.log("enter valid input");
+      console.log("Invalid email or password");
     }
+    reset();
   };
   return (
     <div className="w-[1440px] h-[960px] px-8 pt-24 pb-12 bg-white flex-col justify-start items-center gap-8 inline-flex">
@@ -35,7 +54,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="self-stretch h-[332px] rounded-xl flex-col justify-start items-center gap-6 flex">
             <div className="self-stretch h-40 flex-col justify-start items-start gap-5 flex">
               <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
@@ -47,11 +66,21 @@ const Login = () => {
                     <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
                       <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
                         <input
-                          onChange={(e) => setEmail(e.target.value)}
                           type="email"
+                          {...register("email", {
+                            required: true,
+                            pattern: {
+                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                              message: "invalid email address",
+                            },
+                          })}
+                          aria-invalid={errors.email ? "true" : "false"}
                           placeholder="Enter your email"
                           className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
                         />
+                        {errors.email && (
+                          <p role="alert">{errors.email?.message}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -66,11 +95,19 @@ const Login = () => {
                     <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
                       <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
                         <input
-                          onChange={(e) => setPassword(e.target.value)}
+                          {...register("password", {
+                            required: true,
+                            minLength: 8,
+                            message:
+                              "password must be greater than 8 charachters",
+                          })}
                           type="password"
                           placeholder="Enter your password"
                           className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
                         />
+                        {errors.password && (
+                          <p role="alert">{errors.password?.message}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -101,7 +138,7 @@ const Login = () => {
               <div className="self-stretch rounded-lg justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-11 px-[18px] py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex">
                   <button
-                    onSubmit={handleSubmit}
+                    type="submit"
                     className="text-white text-base font-semibold leading-normal"
                   >
                     Sign in
