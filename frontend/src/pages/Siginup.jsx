@@ -1,19 +1,35 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { email } from "../constants";
-
+import { useDispatch } from "react-redux";
+import { signup } from "../userSlice";
 const Siginup = () => {
-  const [email, setEmail] = useState("");
-  const [Name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [users, setUsers] = [];
+  const dispatch = useDispatch();
+  //   const [email, setEmail] = useState("");
+  //   const [Name, setName] = useState("");
+  //   const [password, setPassword] = useState("");
+  //   const [users, setUsers] = [];
   const {
     register,
-
+    handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  //   const  = (e) => {
+  //     console.log("he");
+  //     e.preventDefault();
+  //     dispatch(signup);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(
+      signup({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+    );
+    reset();
   };
   return (
     <div className="w-[1440px] h-[562px] px-8 flex-col justify-start items-center inline-flex">
@@ -27,7 +43,7 @@ const Siginup = () => {
             Start your 30-day free trial.
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="self-stretch h-[404px] rounded-xl flex-col justify-start items-center gap-6 flex">
             <div className="self-stretch h-[276px] flex-col justify-start items-start gap-5 flex">
               <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
@@ -77,8 +93,8 @@ const Siginup = () => {
                           placeholder="Enter your email"
                           className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
                         />
-                        {errors.mail && (
-                          <p role="alert">{errors.mail?.message}</p>
+                        {errors.email && (
+                          <p role="alert">{errors.email?.message}</p>
                         )}
                       </div>
                     </div>
