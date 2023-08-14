@@ -1,34 +1,29 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { email } from "../constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../userSlice";
 const Siginup = () => {
   const dispatch = useDispatch();
-  //   const [email, setEmail] = useState("");
-  //   const [Name, setName] = useState("");
-  //   const [password, setPassword] = useState("");
-  //   const [users, setUsers] = [];
+  const { users } = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  //   const  = (e) => {
-  //     console.log("he");
-  //     e.preventDefault();
-  //     dispatch(signup);
 
   const onSubmit = (data) => {
     console.log(data);
-    dispatch(
-      signup({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
-    );
+
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(signup(newUser));
+    const updatedUsers = [...users, newUser];
+    localStorage.setItem("user", JSON.stringify(updatedUsers));
+
     reset();
   };
   return (

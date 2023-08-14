@@ -1,20 +1,8 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logger } from "../userSlice";
 import { useForm } from "react-hook-form";
 const Login = () => {
   const dispatch = useDispatch();
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (email && password) {
-  //     dispatch(logger);
-  //   } else {
-  //     console.log("enter valid input");
-  //   }
-  // };
   const { users } = useSelector((state) => state.user);
   const {
     register,
