@@ -1,0 +1,16 @@
+{
+  "orderDetails": {
+    "items": [
+      {
+        "name": "Apple Jumbo (1 kg)",
+        "price": 8.21,
+        "quantity": 1
+      }
+      
+      
+    ],
+    "subTotal": 0,
+    "shipping": 5.0,
+    "total": 0
+  }
+}
