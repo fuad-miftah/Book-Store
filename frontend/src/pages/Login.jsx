@@ -23,14 +23,14 @@ const Login = () => {
     reset();
   };
   return (
-    <div className="w-[1440px] h-[960px] px-8 pt-24 pb-12 bg-white flex-col justify-start items-center gap-8 inline-flex">
+    <div className="w-full min-h-screen px-4 pt-12 pb-8 md:px-8 bg-white flex flex-col justify-start items-center gap-8">
       <div className="h-[562px] flex-col justify-start items-center gap-8 flex">
         <div className="self-stretch h-[146px] flex-col justify-start items-center gap-6 flex">
-          <div className="shadow justify-start items-start inline-flex">
-            <div className="w-12 h-12 relative bg-gradient-to-b from-white to-gray-300 rounded-xl border border-gray-300">
-              <div className="w-12 h-12 left-0 top-0 absolute" />
+          <div className="h-[146px] flex flex-col justify-center items-center gap-6 relative">
+            <div className="shadow justify-start items-start inline-flex">
+              <div className="w-12 h-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute" />
               <div className="w-6 h-6 left-[12px] top-[12px] absolute bg-gradient-to-tr from-violet-900 to-violet-700 rounded-full shadow" />
-              <div className="w-12 h-6 left-0 top-[24px] absolute bg-white bg-opacity-20 rounded-bl-xl rounded-br-xl backdrop-blur-[7.50px]" />
+              <div className="w-12 h-6 left-1/2 transform -translate-x-1/2 top-[24px] absolute bg-white bg-opacity-20 rounded-bl-xl rounded-br-xl backdrop-blur-[7.50px]" />
             </div>
           </div>
           <div className="self-stretch h-[74px] flex-col justify-start items-start gap-3 flex">
@@ -42,7 +42,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="self-stretch h-[332px] rounded-xl flex-col justify-start items-center gap-6 flex">
             <div className="self-stretch h-40 flex-col justify-start items-start gap-5 flex">
               <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
