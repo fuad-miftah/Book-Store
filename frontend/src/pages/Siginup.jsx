@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { logger } from "../userSlice";
 import { useForm } from "react-hook-form";
-const Login = () => {
+import { email } from "../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../userSlice";
+const Siginup = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
   const {
@@ -10,46 +11,67 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
-    const foundUser = users.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-    if (foundUser) {
-      dispatch(logger);
-    } else {
-      console.log("Invalid email or password");
-    }
+
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(signup(newUser));
+    const updatedUsers = [...users, newUser];
+    localStorage.setItem("user", JSON.stringify(updatedUsers));
+
     reset();
   };
   return (
     <div className="w-full min-h-screen px-4 pt-12 pb-8 md:px-8 bg-white flex flex-col justify-start items-center gap-8">
       <div className="h-[562px] flex-col justify-start items-center gap-8 flex">
-        <div className="self-stretch h-[146px] flex-col justify-start items-center gap-6 flex">
-          <div className="h-[146px] flex flex-col justify-center items-center gap-6 relative">
-            <div className="shadow justify-start items-start inline-flex">
-              <div className="w-12 h-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute" />
-              <div className="w-6 h-6 left-[12px] top-[12px] absolute bg-gradient-to-tr from-violet-900 to-violet-700 rounded-full shadow" />
-              <div className="w-12 h-6 left-1/2 transform -translate-x-1/2 top-[24px] absolute bg-white bg-opacity-20 rounded-bl-xl rounded-br-xl backdrop-blur-[7.50px]" />
-            </div>
+        <div className="self-stretch h-[74px] flex-col justify-start items-start gap-3 flex">
+          <div className="self-stretch text-gray-900 text-3xl font-semibold leading-[38px]">
+            Sign up
           </div>
-          <div className="self-stretch h-[74px] flex-col justify-start items-start gap-3 flex">
-            <div className="self-stretch text-center text-gray-900 text-3xl font-semibold leading-[38px]">
-              Log in to your account
-            </div>
-            <div className="self-stretch text-center text-gray-500 text-base font-normal leading-normal">
-              Welcome back! Please enter your details.
-            </div>
+
+          <div className="self-stretch text-gray-500 text-base font-normal leading-normal">
+            Start your 30-day free trial.
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="self-stretch h-[332px] rounded-xl flex-col justify-start items-center gap-6 flex">
-            <div className="self-stretch h-40 flex-col justify-start items-start gap-5 flex">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="self-stretch h-[404px] rounded-xl flex-col justify-start items-center gap-6 flex">
+            <div className="self-stretch h-[276px] flex-col justify-start items-start gap-5 flex">
               <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
                 <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
                   <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
                     <div className="text-slate-700 text-sm font-medium leading-tight">
-                      Email
+                      Name*
+                    </div>
+                    <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
+                      <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
+                        <input
+                          type="text"
+                          {...register("name", {
+                            required: true,
+                            message: "Enter your name",
+                          })}
+                          aria-invalid={errors.name ? "true" : "false"}
+                          className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
+                          placeholder="Enter your name"
+                        />
+                        {errors.name?.type === "required" && (
+                          <p role="alert">name is required</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
+                <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
+                  <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
+                    <div className="text-slate-700 text-sm font-medium leading-tight">
+                      Email*
                     </div>
                     <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
                       <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
@@ -74,23 +96,24 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-              <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
-                <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
+              <div className="self-stretch h-24 flex-col justify-start items-start flex">
+                <div className="self-stretch h-24 flex-col justify-start items-start gap-1.5 flex">
                   <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
                     <div className="text-slate-700 text-sm font-medium leading-tight">
-                      Password
+                      Password*
                     </div>
                     <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
                       <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
                         <input
+                          type="password"
                           {...register("password", {
                             required: true,
                             minLength: 8,
                             message:
                               "password must be greater than 8 charachters",
                           })}
-                          type="password"
-                          placeholder="Enter your password"
+                          aria-invalid={errors.password ? "true" : "false"}
+                          placeholder="Create a password"
                           className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
                         />
                         {errors.password && (
@@ -99,26 +122,9 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="self-stretch justify-between items-center inline-flex">
-              <div className="justify-start items-center gap-2 flex">
-                <div className="justify-center items-center flex">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 relative bg-white rounded border border-gray-300"
-                  />
-                </div>
-                <div className="text-slate-700 text-sm font-medium leading-tight">
-                  Remember for 30 days
-                </div>
-              </div>
-              <div className="self-stretch justify-start items-start flex">
-                <div className="justify-center items-center gap-2 flex">
-                  <button className="text-violet-700 text-sm font-semibold leading-tight">
-                    Forgot password
-                  </button>
+                  <div className="self-stretch text-gray-500 text-sm font-normal leading-tight">
+                    Must be at least 8 characters.
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,7 +135,7 @@ const Login = () => {
                     type="submit"
                     className="text-white text-base font-semibold leading-normal"
                   >
-                    Sign in
+                    Create account
                   </button>
                 </div>
               </div>
@@ -137,7 +143,7 @@ const Login = () => {
                 <div className="self-stretch px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-3 inline-flex">
                   <div className="w-6 h-6 relative" />
                   <button className="text-slate-700 text-base font-semibold leading-normal">
-                    Sign in with Google
+                    Sign up with Google
                   </button>
                 </div>
               </div>
@@ -146,12 +152,12 @@ const Login = () => {
         </form>
         <div className="self-stretch justify-center items-start gap-1 inline-flex">
           <div className="text-gray-500 text-sm font-normal leading-tight">
-            Don’t have an account?
+            Already have an account?
           </div>
           <div className="justify-start items-start flex">
             <div className="justify-center items-center gap-2 flex">
               <div className="text-violet-700 text-sm font-semibold leading-tight">
-                Sign up
+                Log in
               </div>
             </div>
           </div>
@@ -161,4 +167,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Siginup;

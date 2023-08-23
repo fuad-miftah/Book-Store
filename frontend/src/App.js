@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { getBooks } from "./store/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
 import StatusCode from "./utils/StatusCode";
+import Siginup from "./pages/Siginup";
+import Login from "./pages/Login";
 
 function App() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -33,6 +35,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="product" element={<Products />} />
           <Route path="product/:productId" element={<ProductDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Siginup />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
