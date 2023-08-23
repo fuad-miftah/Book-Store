@@ -3,5 +3,6 @@ import loginReducer from "./userSlice";
 export const store = configureStore({
   reducer: {
     user: loginReducer,
+    
   },
 });
