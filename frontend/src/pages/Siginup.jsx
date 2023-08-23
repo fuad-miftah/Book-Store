@@ -27,7 +27,7 @@ const Siginup = () => {
     reset();
   };
   return (
-    <div className="w-[1440px] h-[562px] px-8 flex-col justify-start items-center inline-flex">
+    <div className="w-full min-h-screen px-4 pt-12 pb-8 md:px-8 bg-white flex flex-col justify-start items-center gap-8">
       <div className="h-[562px] flex-col justify-start items-center gap-8 flex">
         <div className="self-stretch h-[74px] flex-col justify-start items-start gap-3 flex">
           <div className="self-stretch text-gray-900 text-3xl font-semibold leading-[38px]">
