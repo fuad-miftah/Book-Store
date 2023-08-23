@@ -5,8 +5,26 @@ import Shared from "./pages/Shared"
 import Products from "./pages/Products"
 import Error from "./pages/Error"
 import ProductDetail from "./pages/ProductDetail"
+import { useEffect } from "react";
+import { getBooks } from "./store/bookSlice";
+import { useDispatch, useSelector } from "react-redux";
+import StatusCode from "./utils/StatusCode";
 
 function App() {
+  const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBooks());
+  }, [])
+
+  if (status === StatusCode.LOADING) {
+    return <p>Loading...</p>
+  }
+
+  if (status === StatusCode.ERROR) {
+    return <p>Error try again</p>
+  }
 
   return (
     <BrowserRouter>

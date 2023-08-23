@@ -3,6 +3,7 @@ import { add } from "../../store/cartSlice"
 import { useDispatch } from "react-redux"
 
 export default function UperDiv({ data }) {
+    console.log("upperdiv - ", data);
     const dispatch = useDispatch();
     const addToCart = (id, price) => {
         const book = [id, price]
