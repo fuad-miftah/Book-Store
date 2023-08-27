@@ -11,46 +11,52 @@ const Header = () => {
 
 
   return (
-    <nav className="flex flex-row p-4 items-center md:w-auto bg-white border-gray-200 dark:bg-gray-900">
-      <div className="w-full flex flex-wrap md:relative lg:flex-row p-4 items-center justify-center lg:justify-evenly">
-        <div className="flex md:w-200 md:h-50 items-center justify-center ">
-          <a href="/"
-            className="w-full md:w-200 md:h-50 items-start md:items-center justify-between md:justify-center">
+    <nav className="flex flex-row px-4 justify-start items-center md:w-auto md:px-8 bg-white border-gray-200 dark:bg-gray-900">
+      <div className="w-full flex md:relative lg:flex-row p-4 items-center justify-start lg:justify-between gap-8">
+        <div className="flex left-0 md:w-200 md:h-50 items-center justify-start ">
+          <a href="/dashboard"
+            className="hidden sm:hidden md:block w-32 items-center ">
             <img
-              className="md:w-200 md:h-50 items-center justify-center "
-              src={logo}
-              alt="Logo"
+              className="w-full h-7 "
+              src={menu}
+              alt="menu"
             />
 
           </a>
         </div>
-        {/* <div className="block md:hidden w-32 items-center ">
+       
+       <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-center shrink-0 space-y-4 space-x-4">
+        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
           <img
-            className="w-full h-7 left-0 top-[15.47px] "
-            src={menu}
-            alt="Menu"
-            onClick={handleLogoClick}
+            className=" md:w-200 md:h-50 relative"
+            src={logo}
+            alt="logo"
+            onClick="/"
           />
-        </div> */}
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-
-          <div className="flex-reverse  flex-grow md:items-center    md:w-auto relative ">
+        </div>
+        <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-2 shrink-0 space-x-2">
+          <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
             <input
               type="text"
               name="query"
-              placeholder="Search..."
-              className=" py-2 w-full  md:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 pl-8 pr-3" // Added padding for icon
-            />
-
+              placeholder="Search Books..."
+              className="lg:w-[500px] h-[48px] md:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 pl-8 pr-0"
+              
+              />
             <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
               <img
-                className="w-4 h-4 text-gray-400"
+                className="w-5 h-5 text-gray-400 shrink-0"
                 src={searchIcon}
                 alt="Search Icon"
               />
             </div>
           </div>
-          <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-1 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+          <button 
+          data-collapse-toggle="navbar-default" 
+          type="button" 
+          className="inline-flex items-center p-1 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 shrink-0"
+          aria-controls="navbar-default" 
+          aria-expanded="false">
             <span className="sr-only">Open main menu</span>
             <img
               className=" w-32 h-7 left-0 top-[15.47px] "
@@ -59,21 +65,18 @@ const Header = () => {
               onClick={() => setToggleMenu(!toggleMenu)}
             />
           </button>
-
-
-
+        </div>
         </div>
         <NavbarItem href="/user" icon={user} text="SignIn" />
         <NavbarItem href="/favorite" icon={wishlist} text="Wishlist" />
         <NavbarItem href="/cart" icon={cart} text="$12.21" />
 
         <div
-          className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700 ${!toggleMenu ? "h-0" : "h-50px top-[120px]"
+          className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full "
             }`}
         >
 
-          <div className="flex flex-col gap-1 font-normal tracking-wider justify-start">
-
+          <div className="flex flex-col gap-1 font-normal tracking-wider justify-start shrink-0 space-x-2">
             <a href="/signin" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-green-200 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white" aria-current="page">
               <div className="flex flex-row items-center justify-start">
                 <img className="w-5 h-5" src={user} alt="Signin" />
@@ -95,12 +98,8 @@ const Header = () => {
               </div>
             </a>
           </div>
-
         </div>
       </div>
-
-
-
     </nav>
   );
 };
