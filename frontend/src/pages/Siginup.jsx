@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { email } from "../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../userSlice";
+import { Link } from "react-router-dom";
 const Siginup = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
@@ -157,7 +158,8 @@ const Siginup = () => {
           <div className="justify-start items-start flex">
             <div className="justify-center items-center gap-2 flex">
               <div className="text-violet-700 text-sm font-semibold leading-tight">
-                Log in
+                <Link to="/login">Log in</Link>
+
               </div>
             </div>
           </div>
