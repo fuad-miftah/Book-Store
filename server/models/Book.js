@@ -1,40 +1,58 @@
-const mongoose=require('mongoose');
-const User = require('./User');
+import { Schema, model } from 'mongoose';
+import User from './User';
+import Retailer from './Retailer';
 
-const BookSchema= new mongoose.Schema({
-    title:{
-        type:String,
-        required:true,
+const BookSchema = new Schema({
+    title: {
+        type: String,
+        required: true,
     },
-    slug:{
-        type:String,
-        required:true,
+    author: {
+        type: String,
+        required: true,
     },
-    price:{
-        type:Number,
-        required:true,
+    description: {
+        type: String,
     },
-    quantity:{
-        type:Number,
-        required:true,
+    genre: {
+        type: String,
+        required: true,
     },
-    coverImg:{
-        type:String,
-        required:true,
+    retailerId: {
+        type: String,
+        ref: Retailer,
+        required: true,
     },
-    no_of_page:{
-        type:String,
+    price: {
+        type: Number,
+        required: true,
     },
-    authorId:{
-        type:String,
-        ref:User,
-        required:true,
+    featured: {
+        type: Boolean,
+        required: true
     },
-    description:{
-        type:String,
+    quantityLeft: {
+        type: Number,
+        required: true,
     },
-},{
-    timestamps:true,
+    rating: [{
+        userId: {
+            type: String,
+            ref: User
+        },
+        rating: Number,
+        review: String
+    }],
+    coverImg: {
+        type: String,
+        required: true,
+    },
+    no_of_page: {
+        type: Number,
+    },
+
+}, {
+    timestamps: true,
 })
 
-module.exports=mongoose.model("books",BookSchema);
+export default model("Book", BookSchema);

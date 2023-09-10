@@ -1,10 +1,10 @@
-const User  =require("../models/User");
+import { findOne } from "../models/User";
 
-const jwt =require("jsonwebtoken");
+import { sign, verify } from "jsonwebtoken";
 
 const generateToken = (req, res, next) => {
     let data = req.body;
-    req.token = jwt.sign(
+    req.token = sign(
         {
             email: data.email,
         },
@@ -26,13 +26,13 @@ const protect = async (req, res, next) => {
             // Get token from header
             token = req.headers.authorization.split(" ")[1]
             // Verify token
-            decoded = jwt.verify(token, process.env.TOKEN_KEY)
+            decoded = verify(token, process.env.TOKEN_KEY)
             // Get user from the token
-            req.user = await User.findOne({ email: decoded.email})
-            if(decoded.role=='admin'){
+            req.user = await findOne({ email: decoded.email })
+            if (decoded.role == 'admin') {
                 next()
-            }else{
-                res.status(401).json({message:"You are not authenticated.",})
+            } else {
+                res.status(401).json({ message: "You are not authenticated.", })
             }
         } catch (error) {
             res.status(401).json({
@@ -59,9 +59,9 @@ const adminProtect = async (req, res, next) => {
             // Get token from header
             token = req.headers.authorization.split(" ")[1]
             // Verify token
-            decoded = jwt.verify(token, process.env.TOKEN_KEY)
+            decoded = verify(token, process.env.TOKEN_KEY)
             // Get user from the token
-            req.user = await User.findOne({ email: decoded.email})
+            req.user = await findOne({ email: decoded.email })
             next()
         } catch (error) {
             res.status(401).json({
@@ -76,4 +76,4 @@ const adminProtect = async (req, res, next) => {
         })
     }
 }
-module.exports={generateToken,protect};
+export default { generateToken, protect };

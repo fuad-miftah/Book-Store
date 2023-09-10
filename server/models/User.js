@@ -1,11 +1,9 @@
-const mongoose = require('mongoose')
-const Role = require('./Role')
-var SchemaTypes = mongoose.Schema.Types
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    roleId: {
+    role: {
         type: String,
-        ref:Role,
+        enum: ["Client", "Retailer", "Admin"],
         required: true,
     },
     firstName: {
@@ -16,19 +14,32 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     email: {
         type: String,
         required: true,
+        unique: true,
     },
-    userName: {
+    img: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    phone: {
         type: String,
         required: true,
     },
     password: {
         type: String,
+        required: true
     },
 }, {
     timestamps: true,
 })
 
-module.exports = mongoose.model('users', UserSchema)
+export default mongoose.model('User', UserSchema)
