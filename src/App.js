@@ -12,6 +12,7 @@ import StatusCode from "./utils/StatusCode";
 import Siginup from "./pages/Siginup";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
+import FavoritePage from "./pages/FavoriteBooks";
 
 function App() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />
           <Route  path="/checkout" element={<Checkout/>}/>
+          <Route path="/favorite" element={<FavoritePage/>}/>
           <Route path="*" element={<Error />} />
 
         </Route>
