@@ -1,29 +1,23 @@
-import { Schema, model } from 'mongoose'
-import User from './User'
-import Book from './Book'
-
+import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const RetailerSchema = new Schema({
     userId: {
-        type: String,
-        ref: User,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
-    listedBooks: [{
-        bookId: {
-            type: String,
-            ref: Book
-        },
-        quantity: Number,
-        price: Number
-    }],
+    listedBooks: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Book",
+    },
     saleHistory: {
-        type: [String],
-        ref: Sale
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Sale"
     },
 
 }, {
     timestamps: true,
 })
 
-export default model('Retailer', RetailerSchema)
+export default model('Retailer', RetailerSchema);

@@ -1,16 +1,15 @@
-import { Schema, model } from 'mongoose'
-import Book from './Book'
-import User from './User'
+import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const OrderSchema = new Schema({
     userId: {
-        type: String,
-        ref: User,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     bookId: {
-        type: [String],
-        ref: Book,
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Book",
         required: true,
     },
     address: {
