@@ -1,6 +1,5 @@
+import mongoose from 'mongoose';
 import { Schema, model } from 'mongoose';
-import User from './User';
-import Retailer from './Retailer';
 
 const BookSchema = new Schema({
     title: {
@@ -19,8 +18,8 @@ const BookSchema = new Schema({
         required: true,
     },
     retailerId: {
-        type: String,
-        ref: Retailer,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Retailer",
         required: true,
     },
     price: {
@@ -37,8 +36,8 @@ const BookSchema = new Schema({
     },
     rating: [{
         userId: {
-            type: String,
-            ref: User
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         },
         rating: Number,
         review: String

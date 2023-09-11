@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import Client from "../models/Client.js";
+import Retailer from "../models/Retailer.js";
 import bcrypt from "bcrypt";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -13,7 +15,16 @@ export const register = async (req, res, next) => {
       password: hash,
     });
 
-    await newUser.save();
+    const savedUser = await newUser.save();
+    const { role } = req.body;
+
+    if (role === 'Client') {
+      const newClient = new Client({ userId: savedUser._id });
+      await newClient.save();
+    } else if (role === 'Retailer') {
+      const newRetailer = new Retailer({ userId: savedUser._id });
+      await newRetailer.save();
+    }
     res.status(200).send("User has been created.");
   } catch (err) {
     next(err);

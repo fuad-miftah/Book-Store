@@ -1,18 +1,15 @@
-import { Schema, model } from 'mongoose'
-import Retailer from './Retailer'
-import Client from './Client'
-import Order from './Order'
-import Book from './Book'
+import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const SalesSchema = new Schema({
     retailerId: {
-        type: String,
-        ref: Retailer,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Retailer",
         required: true,
     },
     bookId: {
-        type: [String],
-        ref: Book,
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Book",
         required: true,
     },
     saleDate: {
@@ -35,13 +32,13 @@ const SalesSchema = new Schema({
         required: true
     },
     clientId: {
-        type: String,
-        ref: Client,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Client",
         required: true
     },
     orderId: {
-        type: String,
-        ref: Order,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
         required: true
     }
 }, {

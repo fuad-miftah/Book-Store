@@ -1,25 +1,24 @@
-import { Schema, model } from 'mongoose'
-import User from './User'
-import Book from './Book'
+import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const ClientSchema = new Schema({
     userId: {
-        type: String,
-        ref: User,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     orderHistory: {
         type: [String],
-        ref: Order
+        ref: "Order"
     },
     wishList: {
         type: [String],
-        ref: Book
+        ref: "Book"
     },
     cart: [{
         bookId: {
-            type: String,
-            ref: Book
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Book"
         },
         quantity: Number,
         totalPrice: Number
