@@ -14,15 +14,16 @@ import Login from "./pages/Login";
 
 function App() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
-  const { users } = useSelector((state) => state.user);
+  const { userInfo } = useSelector((state) => state.auth);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBooks());
   }, []);
 
-  console.log(users);
-  console.log(users === true);
+  console.log(userInfo);
+  console.log(userInfo === true);
 
   if (status === StatusCode.LOADING) {
     return <p>Loading...</p>;
@@ -38,11 +39,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Shared />}>
           <Route index element={<Home />} />
-          {console.log(users != null)}
-          {console.log(users == null)}
-
-          <Route path="product" element={users != null ? <Products /> : <Navigate replace to="/login" />} />
-          <Route path="product/:productId" element={users != null ? <ProductDetail /> : <Navigate replace to="/login" />} />
+          <Route path="product" element={userInfo != null ? <Products /> : <Navigate replace to="/login" />} />
+          <Route path="product/:productId" element={userInfo != null ? <ProductDetail /> : <Navigate replace to="/login" />} />
           {/* {users ? <Route path="product/:productId" element={<ProductDetail />} /> : <Navigate replace to="/login" />} */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />

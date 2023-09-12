@@ -1,27 +1,38 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logger } from "../userSlice";
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { setCredentials } from '../store/authSlice';
+import { loginAsync } from "../store/authapiSlice";
+
 const Login = () => {
-  const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    const foundUser = users.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-    if (foundUser) {
-      dispatch(logger);
-    } else {
-      console.log("Invalid email or password");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await dispatch(loginAsync(data));
+      console.log(response);
+      if (loginAsync.fulfilled.match(response)) {
+        dispatch(setCredentials(response.payload));
+        navigate('/');
+      }
+    } catch (err) {
+      if (err.message) {
+        console.error("Login failed:", err.message);
+      } else {
+        console.error("An error occurred while logging in:", err);
+      }
     }
-    reset();
   };
+
   return (
     <div className="w-full min-h-screen px-4 pt-12 pb-8 md:px-8 bg-white flex flex-col justify-start items-center gap-8">
       <div className="h-[562px] flex-col justify-start items-center gap-8 flex">
@@ -49,26 +60,23 @@ const Login = () => {
                 <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
                   <div className="self-stretch h-[70px] flex-col justify-start items-start gap-1.5 flex">
                     <div className="text-slate-700 text-sm font-medium leading-tight">
-                      Email
+                      Username
                     </div>
                     <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
                       <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
                         <input
-                          type="email"
-                          {...register("email", {
+                          type="text"
+                          {...register("username", {
                             required: true,
-                            pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: "invalid email address",
-                            },
                           })}
-                          aria-invalid={errors.email ? "true" : "false"}
-                          placeholder="Enter your email"
+                          aria-invalid={errors.username ? "true" : "false"}
+                          placeholder="Enter your username"
                           className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
                         />
-                        {errors.email && (
-                          <p role="alert">{errors.email?.message}</p>
+                        {errors.username && (
+                          <p role="alert">Username is required.</p>
                         )}
+
                       </div>
                     </div>
                   </div>
@@ -85,7 +93,7 @@ const Login = () => {
                         <input
                           {...register("password", {
                             required: true,
-                            minLength: 8,
+                            minLength: 5,
                             message:
                               "password must be greater than 8 charachters",
                           })}
@@ -151,7 +159,7 @@ const Login = () => {
           <div className="justify-start items-start flex">
             <div className="justify-center items-center gap-2 flex">
               <div className="text-violet-700 text-sm font-semibold leading-tight">
-                Sign up
+                <Link to="/signup">Sign up</Link>
               </div>
             </div>
           </div>

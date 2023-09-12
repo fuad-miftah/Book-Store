@@ -49,6 +49,10 @@ const BookSchema = new Schema({
     no_of_page: {
         type: Number,
     },
+    sellCount: {
+        type: Number,
+        default: 0, // Default value set to 0
+    },
 
 }, {
     timestamps: true,

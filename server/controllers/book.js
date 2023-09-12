@@ -109,7 +109,7 @@ export const getBook = async (req, res, next) => {
 
 export const getBooks = async (req, res, next) => {
     try {
-        const books = await Book.find();
+        const books = await Book.find(req.query);
         res.status(200).json(books);
     } catch (err) {
         next(err);

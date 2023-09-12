@@ -65,11 +65,11 @@ export default function Carosel({ caroselData }) {
           caroselData.map((book) => (
             <div>
               <ProductCard
-                key={book.id}
-                id={book.id}
+                key={book._id}
+                id={book._id}
                 title={book.title}
                 price={book.price}
-                image={book.image}
+                image={book.coverImg}
               />
             </div>
           ))

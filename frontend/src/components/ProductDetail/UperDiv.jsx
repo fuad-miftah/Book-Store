@@ -12,7 +12,7 @@ export default function UperDiv({ data }) {
     return (
         <div className="flex flex-row flex-wrap w-screen p-10">
 
-            <img class="rounded-t-lg w-[40%] h-[500px]" src={data.image} alt="" />
+            <img class="rounded-t-lg w-[40%] h-[500px]" src={data.coverImg} alt="" />
 
             <div className="flex flex-col p-10 ">
                 <div className="flex flex-wrap flex-col space-y-8">
@@ -23,7 +23,7 @@ export default function UperDiv({ data }) {
                         </div>
                         <p className="h-[40px] inline-flex items-center line-through">15 birr</p>
                     </div>
-                    <p className="text-4xl">300 Birr</p>
+                    <p className="text-4xl">{data.price} Birr</p>
                 </div>
                 <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div>
