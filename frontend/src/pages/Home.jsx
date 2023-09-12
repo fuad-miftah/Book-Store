@@ -7,7 +7,7 @@ import StatusCode from "../utils/StatusCode";
 
 export default function Home() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
-
+  console.log(data, featuredData, bestSellerData, status);
 
   if (status === StatusCode.LOADING) {
     return <p>Loading...</p>

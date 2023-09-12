@@ -1,31 +1,40 @@
 import { useForm } from "react-hook-form";
-import { email } from "../constants";
-import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../userSlice";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setCredentials } from '../store/authSlice';
+import { registerAsync } from "../store/authapiSlice";
+
+
 const Siginup = () => {
-  const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const newUser = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    };
-    dispatch(signup(newUser));
-    const updatedUsers = [...users, newUser];
-    localStorage.setItem("user", JSON.stringify(updatedUsers));
-
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const newUser = {
+        username: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.role,
+      };
+      const response = await dispatch(registerAsync(newUser));
+      if (registerAsync.fulfilled.match(response)) {
+        dispatch(setCredentials(response.payload));
+        navigate('/login');
+      }
+    } catch (err) {
+      if (err.message) {
+        console.error("Registration failed:", err.message);
+      } else {
+        console.error("An error occurred while registering:", err);
+      }
+    }
   };
   return (
     <div className="w-full min-h-screen px-4 pt-12 pb-8 md:px-8 bg-white flex flex-col justify-start items-center gap-8">
@@ -40,6 +49,29 @@ const Siginup = () => {
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="self-stretch h-24 flex-col justify-start items-start flex">
+            <div className="self-stretch h-24 flex-col justify-start items-start gap-1.5 flex">
+              <div className="text-slate-700 text-sm font-medium leading-tight">
+                Role*
+              </div>
+              <div className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 inline-flex">
+                <div className="grow shrink basis-0 h-6 justify-start items-center gap-2 flex">
+                  <select
+                    {...register("role", { required: true })}
+                    aria-invalid={errors.role ? "true" : "false"}
+                    className="grow shrink basis-0 text-gray-500 text-base font-normal leading-normal"
+                  >
+                    <option value="">Select Role</option>
+                    <option value="Client">Client</option>
+                    <option value="Retailer">Retailer</option>
+                  </select>
+                  {errors.role?.type === "required" && (
+                    <p role="alert">Role is required</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="self-stretch h-[404px] rounded-xl flex-col justify-start items-center gap-6 flex">
             <div className="self-stretch h-[276px] flex-col justify-start items-start gap-5 flex">
               <div className="self-stretch h-[70px] flex-col justify-start items-start flex">
@@ -109,7 +141,7 @@ const Siginup = () => {
                           type="password"
                           {...register("password", {
                             required: true,
-                            minLength: 8,
+                            minLength: 5,
                             message:
                               "password must be greater than 8 charachters",
                           })}

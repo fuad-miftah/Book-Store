@@ -3,12 +3,19 @@ import { useSelector } from "react-redux";
 import Subtitle from "../components/Home/Subtitle";
 import Carosel from "../components/Home/Carosel";
 import UperDiv from "../components/ProductDetail/UperDiv";
+import StatusCode from "../utils/StatusCode";
 
 export default function ProductDetail() {
+  console.log(useParams());
   const location = useLocation();
   const { productId } = useParams();
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
-  const singleProduct = data.find(item => item.id === Number(productId));
+  console.log(data, productId);
+  const singleProduct = data.find(item => item._id === productId);
+
+  if (!singleProduct) {
+    return <p>Error try again</p>
+  }
 
   return (
     <div>
@@ -19,9 +26,9 @@ export default function ProductDetail() {
         <div>
           <UperDiv data={singleProduct} />
           <Subtitle title="Featured Items" />
-          <Carosel caroselData={data} />
+          <Carosel caroselData={featuredData} />
           <Subtitle title="Best Seller In Your Area" />
-          <Carosel caroselData={data} />
+          <Carosel caroselData={bestSellerData} />
         </div>
       ) : (
         <p>Loading...</p>

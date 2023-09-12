@@ -8,11 +8,9 @@ const UserSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: true,
     },
     lastName: {
         type: String,
-        required: true,
     },
     username: {
         type: String,
@@ -32,7 +30,6 @@ const UserSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
