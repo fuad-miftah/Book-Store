@@ -1,13 +1,32 @@
-import Hero from "../components/Home/Hero"
-import OfferCard from "../components/Home/OfferCard"
-import Subtitle from "../components/Home/Subtitle"
-import Carosel from "../components/Home/Carosel"
+import React, { useState, useEffect } from 'react';
+import Hero from "../components/Home/Hero";
+import OfferCard from "../components/Home/OfferCard";
+import Subtitle from "../components/Home/Subtitle";
+import Carosel from "../components/Home/Carosel";
 import { useSelector } from "react-redux";
 import StatusCode from "../utils/StatusCode";
+import CustomCarousel from "../components/Home/CustomCarousel";
+import ProductCard from '../components/Home/ProductCard';
 
 export default function Home() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
-  console.log(data, featuredData, bestSellerData, status);
+  // Function to check window width
+  const isWindowWidthGreaterThan1200px = () => {
+    return window.innerWidth > 1340;
+  };
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   if (status === StatusCode.LOADING) {
     return <p>Loading...</p>
@@ -22,9 +41,57 @@ export default function Home() {
       <Hero />
       <OfferCard />
       <Subtitle title="Featured Items" />
-      <Carosel caroselData={featuredData} />
-      <Subtitle title="Best Seller In Your Area" />
-      <Carosel caroselData={bestSellerData} />
+      {isWindowWidthGreaterThan1200px() ? (
+        <>
+          <Carosel caroselData={data} />
+
+        </>
+      ) : (
+        <>
+          <div className='flex flex-row flex-wrap justify-between mx-10'>
+            {
+              data.map((book) => (
+                <div className='m-3 md:m-8'>
+                  <ProductCard
+                    key={book._id}
+                    id={book._id}
+                    title={book.title}
+                    price={book.price}
+                    image={book.coverImg}
+                  />
+                </div>
+              ))
+            }
+
+          </div>
+        </>
+      )}
+      <Subtitle title="Best Seller Items" />
+      {isWindowWidthGreaterThan1200px() ? (
+        <>
+          <Carosel caroselData={featuredData} />
+
+        </>
+      ) : (
+        <>
+          <div className='flex flex-row flex-wrap justify-between mx-10'>
+            {
+              featuredData.map((book) => (
+                <div className='m-8'>
+                  <ProductCard
+                    key={book._id}
+                    id={book._id}
+                    title={book.title}
+                    price={book.price}
+                    image={book.coverImg}
+                  />
+                </div>
+              ))
+            }
+
+          </div>
+        </>
+      )}
     </div>
   )
 }

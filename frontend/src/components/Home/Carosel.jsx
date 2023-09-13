@@ -55,7 +55,7 @@ export default function Carosel({ caroselData }) {
         }
         slidesToSlide={1}
         swipeable
-        renderButtonGroupOutside={true}
+        renderButtonGroupOutside={false}
         customButtonGroup={<customRightArrow />}
         responsive={responsive}
         className='px-4'
@@ -63,7 +63,7 @@ export default function Carosel({ caroselData }) {
 
         {
           caroselData.map((book) => (
-            <div>
+            <div className='flex'>
               <ProductCard
                 key={book._id}
                 id={book._id}
@@ -76,5 +76,6 @@ export default function Carosel({ caroselData }) {
         }
       </Carousel>
     </div>
+
   )
 }
