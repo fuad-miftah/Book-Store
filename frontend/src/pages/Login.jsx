@@ -1,8 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { setCredentials } from '../store/authSlice';
 import { loginAsync } from "../store/authapiSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -14,19 +15,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userInfo } = useSelector((state) => state.auth);
-
   const onSubmit = async (data) => {
     try {
-      const response = await dispatch(loginAsync(data));
-      console.log(response);
-      if (loginAsync.fulfilled.match(response)) {
-        dispatch(setCredentials(response.payload));
-        navigate('/');
-      }
+      const response = await dispatch(loginAsync(data)).unwrap();
+      dispatch(setCredentials(response));
+      navigate('/');
     } catch (err) {
       if (err.message) {
-        console.error("Login failed:", err.message);
+        toast.error(err.message);
       } else {
         console.error("An error occurred while logging in:", err);
       }

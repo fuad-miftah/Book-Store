@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 export default function ProductCard({ key, id, title, price, image }) {
     return (
-        <div class="max-w-[192px] h-[457px] bg-white rounded-lg">
+        <div class="max-w-[192px] h-[400px] bg-white rounded-lg">
             <Link to={`/product/${id}`}>
                 <img class="rounded-t-lg w-[192px] h-[280px]" src={image} alt="" />
             </Link>

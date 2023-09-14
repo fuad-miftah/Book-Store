@@ -4,6 +4,13 @@ import { phone, email, location, footerPageLink, categories } from "../constants
 import { NavLink } from "react-router-dom";
 import GreenButton from "./Common/GreenButton";
 function Footer() {
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optional: Add smooth scrolling animation
+    });
+  };
   return (
     <div className="p-10 text-black-800">
       <div className="w-full pt-10 pr-10 pl-10 mx-auto">
@@ -24,7 +31,7 @@ function Footer() {
             <h4 className="pb-4 font-bold">Categories</h4>
             <ul className="text-gray-500">
               {categories.map((categorie) => (
-                <li className="pb-4"><NavLink to={categorie.link} className="text-grey-500 hover:text-green-500">{categorie.name}</NavLink></li>
+                <li className="pb-4" onClick={handleScrollToTop}><NavLink to={categorie.link} className="text-grey-500 hover:text-green-500">{categorie.name}</NavLink></li>
               ))}
             </ul>
           </div>
@@ -32,7 +39,7 @@ function Footer() {
             <h4 className="pb-4 font-bold">Company</h4>
             <ul className="text-gray-500">
               {footerPageLink.map((footerLink) => (
-                <li className="pb-4"><NavLink to={footerLink.link} className="hover:text-green-500">{footerLink.name}</NavLink></li>
+                <li className="pb-4" onClick={handleScrollToTop}><NavLink to={footerLink.link} className="hover:text-green-500">{footerLink.name}</NavLink></li>
               ))}
             </ul>
           </div>

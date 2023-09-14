@@ -47,18 +47,19 @@ export const login = async (req, res, next) => {
       return next(createError(500, "JWT secret key is not configured."));
     }
 
-    const token = jwt.sign(
+    const access_token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT  // Use the JWT secret key from environment variables
     );
 
     const { password, role, ...otherDetails } = user._doc;
     res
-      .cookie("access_token", token, {
+      .cookie("access_token", access_token, {
         httpOnly: true,
+        path: '/',
       })
       .status(200)
-      .json({ details: { ...otherDetails }, role });
+      .json({ details: { ...otherDetails }, role, access_token });
   } catch (err) {
     next(err);
   }

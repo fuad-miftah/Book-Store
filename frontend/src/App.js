@@ -11,6 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import StatusCode from "./utils/StatusCode";
 import Siginup from "./pages/Siginup";
 import Login from "./pages/Login";
+import Cart from "./pages/Cart";
+import Whishlist from "./pages/Wishlist";
+import ClientDashboard from "./pages/ClientDashboard";
+import RetailerDashboard from "./pages/RetailerDashbord";
+import Dashboard from "./pages/Dashbord";
+
 
 function App() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -39,9 +45,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Shared />}>
           <Route index element={<Home />} />
-          <Route path="product" element={userInfo != null ? <Products /> : <Navigate replace to="/login" />} />
-          <Route path="product/:productId" element={userInfo != null ? <ProductDetail /> : <Navigate replace to="/login" />} />
-          {/* {users ? <Route path="product/:productId" element={<ProductDetail />} /> : <Navigate replace to="/login" />} */}
+          <Route path="product" element={<Products />} />
+          <Route path="product/:productId" element={<ProductDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="wishlist" element={<Whishlist />} />
+          <Route path="Dashboard" element={<Dashboard />} />
+          <Route path="clientDashbord" element={<ClientDashboard />} />
+          <Route path="retailerDashboard" element={<RetailerDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />
           <Route path="*" element={<Error />} />
