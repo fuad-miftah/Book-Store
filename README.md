@@ -61,9 +61,9 @@ To run this project locally, follow these steps:
 5. Configure environment variables:
 
     Create a .env file in the server directory and add this
-        DB_URL = 
-        PORT = 5555
-        JWT = 
+        DB_URL, 
+        PORT = 5555, 
+        JWT 
 6. Start the server and client:
 
     # In the server directory
