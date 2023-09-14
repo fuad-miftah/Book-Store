@@ -22,7 +22,7 @@ const bookSlice = createSlice({
             .addCase(getBooks.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.featuredData = action.payload.filter(item => item.featured === true).slice(0, 8);
-                state.bestSellerData = action.payload.slice().sort((a, b) => b.sellCount - a.sellCount).slice(0, 2);
+                state.bestSellerData = action.payload.slice().sort((a, b) => b.sellCount - a.sellCount).slice(0, 8);
                 state.status = StatusCode.IDLE;
             })
             .addCase(getBooks.rejected, (state, action) => {

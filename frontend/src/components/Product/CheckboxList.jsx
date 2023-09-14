@@ -1,10 +1,3 @@
-import {
-    Checkbox,
-    ListItem,
-    ListItemPrefix,
-    Typography,
-} from "@material-tailwind/react";
-
 export default function CheckboxList() {
     const category = [
         "Food",

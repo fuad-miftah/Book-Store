@@ -4,6 +4,7 @@ import {
     updateBook,
     deleteBook,
     getBook,
+    getRetailerBook,
     getBooks,
 } from "../controllers/book.js";
 import { verifyAdmin, verifyRetailer, verifyToken, verifyUser } from "../utils/verifyToken.js";
@@ -21,6 +22,9 @@ router.delete("/:id/:bookId", verifyRetailer, deleteBook);
 
 //GET
 router.get("/:id", getBook);
+
+//GET retailer books
+router.get("/retailer/:id", verifyRetailer, getRetailerBook);
 
 //GET ALL
 router.get("/", getBooks);

@@ -1,8 +1,8 @@
-import { ChevronDownIcon, ChevronUpIcon, MinusIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GreenButton from "../Common/GreenButton";
-import { toggleCategory, toggleBrand, setMinPrice, setMaxPrice } from "../../store/filterSlice";
+import { toggleCategory, toggleBrand, setMinPrice, setMaxPrice, toggleIsAvailable } from "../../store/filterSlice";
 
 export default function Filter({ applyFilters }) {
     const category = [
@@ -57,14 +57,11 @@ export default function Filter({ applyFilters }) {
 
     const handleApplyFilters = () => {
         // Construct the filter object based on user input
-        console.log("Filter: clicked");
         applyFilters();
-
-        console.log("Filtered Items:",);
     };
 
     return (
-        <div className="flex flex-col w-[310px] border rounded-lg ml-10 mr-6 p-6">
+        <div className="flex flex-col w-[450px] border rounded-lg ml-10 mr-6 p-6">
 
             <div className="category-dropdown">
                 <div className="category-title cursor-pointer mb-4" onClick={togglePriceDropdown}>
@@ -74,7 +71,7 @@ export default function Filter({ applyFilters }) {
                     </div>
                 </div>
                 {isPriceOpen && (
-                    <div className="price-content flex flex-row flex-wrap space-y-2">
+                    <div className="price-content flex flex-row flex-wrap s">
                         <div>
                             <span className="text-xl font-medium mr-1">$</span>
                             <input type="number"
@@ -159,34 +156,46 @@ export default function Filter({ applyFilters }) {
 
                 <div className="category-title cursor-pointer my-4" onClick={toggleAvailabilityDropdown}>
                     <div className="flex flex-row items-center justify-between">
-                        <p className="text-2xl font-medium">Availability</p>
-                        {isAvailabilityOpen ? <ChevronUpIcon className="h-6 w-6 ml-4 mt-1" /> : <ChevronDownIcon className="h-6 w-6 ml-4 mt-1" />}
+                        <p className="text-2xl font-medium">Available</p>
+                        {isAvailabilityOpen ? (
+                            <ChevronUpIcon className="h-6 w-6 ml-4 mt-1" />
+                        ) : (
+                            <ChevronDownIcon className="h-6 w-6 ml-4 mt-1" />
+                        )}
                     </div>
                 </div>
                 {isAvailabilityOpen && (
                     <div className="category-content">
-                        {/* <CheckboxList /> */}
                         <div className="flex flex-col">
-                            {category.map((item) => (
-                                <div className="my-2">
-                                    <label className="inline-flex items-center">
-                                        <input type="checkbox" className="form-checkbox h-4 w-4 mr-2" />
-                                        <span className="ml-2 text-gray-700">{item}</span>
-                                    </label>
-                                </div>
-                            ))}
+                            <label className="inline-flex items-center">
+                                <input
+                                    type="radio"
+                                    className="form-radio h-4 w-4 mr-2"
+                                    value="yes"
+                                    checked={filter.isAvailable === true}
+                                    onChange={() => dispatch(toggleIsAvailable(true))}
+                                />
+                                <span className="ml-2 text-gray-700">Yes</span>
+                            </label>
+                            <label className="inline-flex items-center">
+                                <input
+                                    type="radio"
+                                    className="form-radio h-4 w-4 mr-2"
+                                    value="no"
+                                    checked={filter.isAvailable === false}
+                                    onChange={() => dispatch(toggleIsAvailable(false))}
+                                />
+                                <span className="ml-2 text-gray-700">No</span>
+                            </label>
                         </div>
                     </div>
                 )}
-                <div />
 
 
             </div>
 
-            {/* <GreenButton title="Apply Filters" onClick={handleApplyFilters} /> */}
-            <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full"
-                onClick={handleApplyFilters}>Apply Filters</button>
+            <GreenButton title="Apply Filters" onClick={handleApplyFilters} />
+
         </div>
     );
 }

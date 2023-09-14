@@ -30,7 +30,7 @@ const BookSchema = new Schema({
         type: Boolean,
         required: true
     },
-    quantityLeft: {
+    quantity: {
         type: Number,
         required: true,
     },

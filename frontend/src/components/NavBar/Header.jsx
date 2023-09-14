@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 const Header = () => {
-
+  const { userInfo } = useSelector((state) => state.auth);
   const [toggleMenu, setToggleMenu] = useState(false);
-
 
 
   return (
@@ -24,52 +25,59 @@ const Header = () => {
 
           </a>
         </div>
-       
-       <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-center shrink-0 space-y-4 space-x-4">
-        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
-          <img
-            className=" md:w-200 md:h-50 relative"
-            src={logo}
-            alt="logo"
-            onClick="/"
-          />
-        </div>
-        <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-2 shrink-0 space-x-2">
-          <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
-            <input
-              type="text"
-              name="query"
-              placeholder="Search Books..."
-              className="lg:w-[500px] h-[48px] md:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 pl-8 pr-0"
-              
-              />
-            <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+
+        <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-center shrink-0 space-y-4 space-x-4">
+          <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
+            <Link to="/">
               <img
-                className="w-5 h-5 text-gray-400 shrink-0"
-                src={searchIcon}
-                alt="Search Icon"
+                className=" md:w-200 md:h-50 relative"
+                src={logo}
+                alt="logo"
               />
-            </div>
+            </Link>
           </div>
-          <button 
-          data-collapse-toggle="navbar-default" 
-          type="button" 
-          className="inline-flex items-center p-1 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 shrink-0"
-          aria-controls="navbar-default" 
-          aria-expanded="false">
-            <span className="sr-only">Open main menu</span>
-            <img
-              className=" w-32 h-7 left-0 top-[15.47px] "
-              src={menu}
-              alt="Menu"
-              onClick={() => setToggleMenu(!toggleMenu)}
-            />
-          </button>
+          <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-2 shrink-0 space-x-2">
+            <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
+              <input
+                type="text"
+                name="query"
+                placeholder="Search Books..."
+                className="lg:w-[500px] h-[48px] md:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 pl-8 pr-0"
+
+              />
+              <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                <img
+                  className="w-5 h-5 text-gray-400 shrink-0"
+                  src={searchIcon}
+                  alt="Search Icon"
+                />
+              </div>
+            </div>
+            <button
+              data-collapse-toggle="navbar-default"
+              type="button"
+              className="inline-flex items-center p-1 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 shrink-0"
+              aria-controls="navbar-default"
+              aria-expanded="false">
+              <span className="sr-only">Open main menu</span>
+              <img
+                className=" w-32 h-7 left-0 top-[15.47px] "
+                src={menu}
+                alt="Menu"
+                onClick={() => setToggleMenu(!toggleMenu)}
+              />
+            </button>
+          </div>
         </div>
-        </div>
-        <NavbarItem href="/user" icon={user} text="SignIn" />
-        <NavbarItem href="/favorite" icon={wishlist} text="Wishlist" />
-        <NavbarItem href="/cart" icon={cart} text="$12.21" />
+        <NavbarItem href={userInfo != null ? "/Dashboard" : "/login"} icon={user} text={userInfo != null ? userInfo.details.username : "SignIn"} />
+        {
+          userInfo == null || userInfo.role !== "Retailer" ? <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" /> : null
+
+        }
+        {
+          userInfo == null || userInfo.role !== "Retailer" ? <NavbarItem href="/cart" icon={cart} text="$12.21" /> : null
+
+        }
 
         <div
           className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full "

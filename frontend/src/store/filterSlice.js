@@ -6,6 +6,7 @@ const initialState = {
     selectedBrands: [], // Store selected brands here
     minPrice: "",
     maxPrice: "",
+    isAvailable: false,
 };
 
 const filterSlice = createSlice({
@@ -42,6 +43,9 @@ const filterSlice = createSlice({
         setMaxPrice: (state, action) => {
             state.maxPrice = action.payload;
         },
+        toggleIsAvailable: (state) => {
+            state.isAvailable = !state.isAvailable; // Toggle the isAvailable property
+        },
     },
 });
 
@@ -50,6 +54,7 @@ export const {
     toggleBrand,
     setMinPrice,
     setMaxPrice,
+    toggleIsAvailable,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

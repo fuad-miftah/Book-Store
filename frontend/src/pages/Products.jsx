@@ -1,12 +1,16 @@
 import React, { useState, useCallback } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Filter from "../components/Product/Filter";
 import ProductCard from "../components/Home/ProductCard";
 
 export default function Products() {
   const location = useLocation();
-  const { productId } = useParams();
+  const paths = location.pathname.split("/");
+  const newPaths = paths.filter((path) => path !== "");
+  newPaths.unshift("Home");
+  const newPath = newPaths.join(" > ");
+
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
   const filter = useSelector((state) => state.filter);
 
@@ -21,7 +25,7 @@ export default function Products() {
 
   // Filter the data based on selected filter properties
   const filteredData = data.filter((book) => {
-    const { selectedCategories, selectedBrands, minPrice, maxPrice } = filter;
+    const { selectedCategories, selectedBrands, minPrice, maxPrice, isAvailable } = filter;
     const isCategoryMatch =
       selectedCategories.length === 0 || selectedCategories.includes(book.genre);
     const isBrandMatch =
@@ -29,15 +33,16 @@ export default function Products() {
     const isPriceMatch =
       (minPrice === "" || Number(book.price) >= Number(minPrice)) &&
       (maxPrice === "" || Number(book.price) <= Number(maxPrice));
+    const isAvailabilityMatch = isAvailable ? book.quantity > 30 : true;
 
-    return isCategoryMatch && isBrandMatch && isPriceMatch;
+    return isCategoryMatch && isBrandMatch && isPriceMatch && isAvailabilityMatch;
   });
 
 
   return (
     <div>
       <div className="flex flex-row flex-wrap px-20 py-4 bg-green-200 mb-16">
-        <p>{location.pathname}</p>
+        <p>{newPath}</p>
       </div>
       {data ? (
         <div className="flex flex-col md:flex-row">

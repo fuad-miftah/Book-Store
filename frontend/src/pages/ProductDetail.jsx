@@ -28,9 +28,15 @@ export default function ProductDetail() {
   }, []);
 
   const location = useLocation();
+  const paths = location.pathname.split("/");
+  const newPaths = paths.filter((path) => path !== "");
   const { productId } = useParams();
 
   const singleProduct = data.find(item => item._id === productId);
+  newPaths[1] = singleProduct.title;
+  newPaths.unshift("Home");
+  const newPath = newPaths.join(" > ");
+
 
   if (!singleProduct) {
     return <p>Error try again</p>
@@ -47,7 +53,7 @@ export default function ProductDetail() {
   return (
     <div>
       <div className="flex flex-row flex-wrap px-20 py-4 bg-green-200">
-        <p>{location.pathname}</p>
+        <p>{newPath}</p>
       </div>
       {singleProduct ? (
         <div>

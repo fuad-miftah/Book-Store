@@ -1,30 +1,25 @@
 import express from "express"
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/users.js";
 import cartRoute from "./routes/cart.js";
 import orderRoute from "./routes/order.js";
 import bookRoute from './routes/book.js';
 import salesRoute from './routes/sales.js';
-import bodyParser from "body-parser";
 import cors from "cors"
 import connectToDatabase from "./config/db.js";
 import cookieParser from "cookie-parser";
 
-//const cors = require('cors');
-//const cookieParser = require("cookie-parser");
-
-
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000
-//app.use(bodyParser.json());
 
-//app.use(cors({ origin: 'www.example.com' }));
 connectToDatabase();
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(cookieParser())
 app.use(express.json());
 

@@ -5,7 +5,6 @@ import Subtitle from "../components/Home/Subtitle";
 import Carosel from "../components/Home/Carosel";
 import { useSelector } from "react-redux";
 import StatusCode from "../utils/StatusCode";
-import CustomCarousel from "../components/Home/CustomCarousel";
 import ProductCard from '../components/Home/ProductCard';
 
 export default function Home() {
