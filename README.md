@@ -46,7 +46,7 @@ To run this project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/book-store.git
+   git clone https://github.com/fuad-miftah/Book-Store.git
 2. Navigate to the project directory:
    
    cd book-store
