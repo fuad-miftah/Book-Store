@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function UpdateProfile() {
     const axiosInstance = axios.create({
@@ -36,6 +37,7 @@ export default function UpdateProfile() {
                     phone: user.phone || "",
                 });
             } catch (error) {
+                toast.error("An error occurred while fetching data");
                 console.error("Error fetching user data:", error);
             } finally {
                 setIsLoading(false);
@@ -56,10 +58,11 @@ export default function UpdateProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log("User data:", userData);
             const response = await axiosInstance.put(`http://localhost:5555/api/user/${userInfo.details._id}`, userData);
+            toast.success("Profile updated successfully!");
             console.log("Profile updated successfully:", response.data);
         } catch (error) {
+            toast.error("An error occurred while updating profile");
             console.error("Error updating profile:", error);
         }
     };

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setCredentials } from '../store/authSlice';
 import { registerAsync } from "../store/authapiSlice";
+import { toast } from "react-toastify";
 
 
 const Siginup = () => {
@@ -25,13 +26,16 @@ const Siginup = () => {
       };
       const response = await dispatch(registerAsync(newUser));
       if (registerAsync.fulfilled.match(response)) {
+        toast.success("Registered successfully");
         dispatch(setCredentials(response.payload));
         navigate('/login');
       }
     } catch (err) {
       if (err.message) {
+        toast.error(err.message);
         console.error("Registration failed:", err.message);
       } else {
+        toast.error("An error occurred while registering");
         console.error("An error occurred while registering:", err);
       }
     }

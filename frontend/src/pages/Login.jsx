@@ -19,11 +19,13 @@ const Login = () => {
     try {
       const response = await dispatch(loginAsync(data)).unwrap();
       dispatch(setCredentials(response));
+      toast.success("Logged in successfully");
       navigate('/');
     } catch (err) {
       if (err.message) {
         toast.error(err.message);
       } else {
+        toast.error("An error occurred while logging in");
         console.error("An error occurred while logging in:", err);
       }
     }

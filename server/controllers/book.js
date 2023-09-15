@@ -25,7 +25,7 @@ export const createBook = async (req, res, next) => {
         retailer.listedBooks.push(savedBook._id);
         await retailer.save();
 
-        res.status(200).json(savedBook);
+        res.status(201).json("Book has been created.");
     } catch (err) {
         next(err);
     }
@@ -92,7 +92,7 @@ export const deleteBook = async (req, res, next) => {
 
         await Book.deleteOne({ _id: req.params.bookId });
 
-        res.status(200).json({ message: "Book has been deleted." });
+        res.status(204).json({ message: "Book has been deleted." });
     } catch (err) {
         next(err);
     }

@@ -25,7 +25,7 @@ export const register = async (req, res, next) => {
       const newRetailer = new Retailer({ userId: savedUser._id });
       await newRetailer.save();
     }
-    res.status(200).send("User has been created.");
+    res.status(201).send("User has been created.");
   } catch (err) {
     next(err);
   }
