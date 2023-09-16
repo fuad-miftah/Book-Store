@@ -8,7 +8,7 @@ const Shared = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  const routesToHideHeaderFooter = ["/login", "/signup", "/clientDashbord", "/retailerDashboard"];
+  const routesToHideHeaderFooter = ["/login", "/signup", "/clientDashbord", "/retailerDashboard", "/adminDashboard"];
   const shouldHideHeaderFooter = routesToHideHeaderFooter.includes(pathname);
 
   return (

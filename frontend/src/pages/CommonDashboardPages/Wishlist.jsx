@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromWishlist } from '../store/wishlistSlice';
+import { removeFromWishlist } from '../../store/wishlistSlice';
 
 export default function Whishlist() {
     // Access the cart state from Redux

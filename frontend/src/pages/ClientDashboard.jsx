@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Cart from "./ClientDashbordPages/Cart";
-import Wishlist from "./ClientDashbordPages/Wishlist";
+import Cart from "./CommonDashboardPages/Cart";
+import Wishlist from "./CommonDashboardPages/Wishlist";
 import Dashboard from "./ClientDashbordPages/Dashboard";
 import Order from "./ClientDashbordPages/Order";
 import UpdateProfile from "./ClientDashbordPages/UpdateProfile";

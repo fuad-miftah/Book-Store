@@ -5,7 +5,7 @@ import Subtitle from "../components/Home/Subtitle";
 import Carosel from "../components/Home/Carosel";
 import { useSelector } from "react-redux";
 import StatusCode from "../utils/StatusCode";
-import ProductCard from '../components/Home/ProductCard';
+import FlexCard from '../components/Home/FlexCard';
 
 export default function Home() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -41,55 +41,15 @@ export default function Home() {
       <OfferCard />
       <Subtitle title="Featured Items" />
       {isWindowWidthGreaterThan1200px() ? (
-        <>
-          <Carosel caroselData={data} />
-
-        </>
+        <Carosel caroselData={data} />
       ) : (
-        <>
-          <div className='flex flex-row flex-wrap justify-between mx-10'>
-            {
-              data.map((book) => (
-                <div className='m-3 md:m-8'>
-                  <ProductCard
-                    key={book._id}
-                    id={book._id}
-                    title={book.title}
-                    price={book.price}
-                    image={book.coverImg}
-                  />
-                </div>
-              ))
-            }
-
-          </div>
-        </>
+        <FlexCard data={data} />
       )}
       <Subtitle title="Best Seller Items" />
       {isWindowWidthGreaterThan1200px() ? (
-        <>
-          <Carosel caroselData={featuredData} />
-
-        </>
+        <Carosel caroselData={featuredData} />
       ) : (
-        <>
-          <div className='flex flex-row flex-wrap justify-between mx-10'>
-            {
-              featuredData.map((book) => (
-                <div className='m-8'>
-                  <ProductCard
-                    key={book._id}
-                    id={book._id}
-                    title={book.title}
-                    price={book.price}
-                    image={book.coverImg}
-                  />
-                </div>
-              ))
-            }
-
-          </div>
-        </>
+        <FlexCard data={featuredData} />
       )}
     </div>
   )

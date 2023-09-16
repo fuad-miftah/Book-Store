@@ -30,24 +30,24 @@ function Footer() {
           <div className="mb-5">
             <h4 className="pb-4 font-bold">Categories</h4>
             <ul className="text-gray-500">
-              {categories.map((categorie) => (
-                <li className="pb-4" onClick={handleScrollToTop}><NavLink to={categorie.link} className="text-grey-500 hover:text-green-500">{categorie.name}</NavLink></li>
+              {categories.map((categorie, index) => (
+                <li key={index} className="pb-4" onClick={handleScrollToTop}><NavLink to={categorie.link} className="text-grey-500 hover:text-green-500">{categorie.name}</NavLink></li>
               ))}
             </ul>
           </div>
           <div className="mb-5">
             <h4 className="pb-4 font-bold">Company</h4>
             <ul className="text-gray-500">
-              {footerPageLink.map((footerLink) => (
-                <li className="pb-4" onClick={handleScrollToTop}><NavLink to={footerLink.link} className="hover:text-green-500">{footerLink.name}</NavLink></li>
+              {footerPageLink.map((footerLink, index) => (
+                <li key={index} className="pb-4" onClick={handleScrollToTop}><NavLink to={footerLink.link} className="hover:text-green-500">{footerLink.name}</NavLink></li>
               ))}
             </ul>
           </div>
           <div className="mb-5">
             <h4 className="pb-4 font-bold">Join our Newstler</h4>
             <form className="">
-              <label for="first_name" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">Your Email</label>
-              <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 " placeholder="Enter Your Email" required />
+              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-500 dark:text-white">Your Email</label>
+              <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 " placeholder="Enter Your Email" required />
               <GreenButton title="Subscribe" />
             </form>
           </div>

@@ -27,15 +27,14 @@ export default function Carosel({ caroselData }) {
     }
   };
 
-
   return (
     <div className="mx-14 my-8">
       <Carousel
         arrows
         containerClass="container"
         customLeftArrow={
-          <div class="p-10">
-            <button class="absolute top-1/4 left-4 w-14 h-14 rounded-full 
+          <div className="p-10">
+            <button className="absolute top-1/4 left-4 w-14 h-14 rounded-full 
                        bg-green-700 hover:bg-green-500 text-white  flex items-center">
               <ChevronLeftIcon
                 className="h-6 w-6 ml-4"
@@ -44,9 +43,9 @@ export default function Carosel({ caroselData }) {
           </div>
         }
         customRightArrow={
-          <div class="p-10">
-            <button class="absolute top-1/4 right-4 w-14 h-14 rounded-full 
-                       bg-green-700 hover:bg-green-500 text-white  flex items-center">
+          <div className="p-10">
+            <button className="absolute top-1/4 right-4 w-14 h-14 rounded-full 
+                       bg-green-700 hover.bg-green-500 text-white flex items-center">
               <ChevronRightIcon
                 className="h-6 w-6 ml-4"
               />
@@ -55,17 +54,14 @@ export default function Carosel({ caroselData }) {
         }
         slidesToSlide={1}
         swipeable
-        renderButtonGroupOutside={false}
-        customButtonGroup={<customRightArrow />}
+        customButtonGroup={<div />}
         responsive={responsive}
         className='px-4'
       >
-
         {
           caroselData.map((book) => (
-            <div className='flex'>
+            <div className='flex' key={book._id}>
               <ProductCard
-                key={book._id}
                 id={book._id}
                 title={book.title}
                 price={book.price}
@@ -76,6 +72,5 @@ export default function Carosel({ caroselData }) {
         }
       </Carousel>
     </div>
-
   )
 }
