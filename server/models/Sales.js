@@ -8,20 +8,9 @@ const SalesSchema = new Schema({
         required: true,
     },
     bookId: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
         required: true,
-    },
-    saleDate: {
-        type: Date
-    },
-    coverImg: {
-        type: String,
-        required: true,
-    },
-    quantitySold: {
-        type: Number,
-        required: true
     },
     totalAmount: {
         type: Number,
@@ -29,12 +18,8 @@ const SalesSchema = new Schema({
     },
     paymentReceived: {
         type: Boolean,
-        required: true
-    },
-    clientId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Client",
-        required: true
+        required: true,
+        default: false
     },
     orderId: {
         type: mongoose.Schema.Types.ObjectId,

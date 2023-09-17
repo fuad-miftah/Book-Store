@@ -1,6 +1,22 @@
 import mongoose from 'mongoose';
 import { Schema, model } from 'mongoose';
 
+const CartItemSchema = new Schema({
+    bookId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+    },
+    totalPrice: {
+        type: Number,
+        required: true,
+    },
+});
+
 const ClientSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,14 +31,7 @@ const ClientSchema = new Schema({
         type: [String],
         ref: "Book"
     },
-    cart: [{
-        bookId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Book"
-        },
-        quantity: Number,
-        totalPrice: Number
-    }],
+    cart: [CartItemSchema],
 
 }, {
     timestamps: true,

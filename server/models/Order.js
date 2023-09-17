@@ -8,9 +8,13 @@ const OrderSchema = new Schema({
         required: true,
     },
     bookId: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
         required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true
     },
     address: {
         type: String,
@@ -23,10 +27,12 @@ const OrderSchema = new Schema({
     orderStatus: {
         type: String,
         enum: ["Processing", "Shipped", "Delivered"],
-        required: true
+        required: true,
+        default: "Processing"
     },
     totalPrice: {
         type: Number,
+        required: true
     },
 
 }, {

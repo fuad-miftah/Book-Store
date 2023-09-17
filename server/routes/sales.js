@@ -1,6 +1,5 @@
 import express from "express";
 import {
-    createSale,
     updateSale,
     getSaleById,
     getAllSales,
@@ -10,19 +9,16 @@ import { verifyAdmin, verifyClient, verifyRetailer, verifyToken, verifyUser } fr
 
 const router = express.Router();
 
-//CREATE
-router.post('/:id', verifyRetailer, createSale);
-
 //UPDATE
 router.put('/:id/:saleId', verifyRetailer, updateSale);
 
-//Get Order By ID
-router.get('/:id/:saleId', verifyRetailer, getSaleById);
-
 //GET ALL
-router.get('/:id/all', verifyAdmin, getAllSales);
+router.get('/all/:id', verifyAdmin, getAllSales);
 
 // Get sales by retailer ID
-router.get('/:id/retailer', getRetailerSales);
+router.get('/retailer/:id', getRetailerSales);
+
+//Get sale By ID
+router.get('/:id/:saleId', verifyRetailer, getSaleById);
 
 export default router;

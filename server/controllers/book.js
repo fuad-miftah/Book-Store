@@ -41,19 +41,6 @@ export const updateBook = async (req, res, next) => {
             return res.status(404).json({ message: "Book not found" });
         }
 
-        // Check if the userId of the book's retailer matches the authenticated user's userId
-        const retailer = await Retailer.findOne({ userId: req.params.id });
-
-        // Fetch the user by userId
-        const user = await User.findById(req.params.id);
-
-        // Check if the user is an admin
-        const isAdmin = user.role === "Admin";
-
-        if ((!retailer || retailer._id.toString() !== updatedBook.retailerId.toString()) && !isAdmin) {
-            return res.status(403).json({ message: "You are not authorized to update this book" });
-        }
-
         // Update the book
         updatedBook.set(req.body);
         const savedBook = await updatedBook.save();
@@ -73,36 +60,16 @@ export const deleteBook = async (req, res, next) => {
             return res.status(404).json({ message: "Book not found" });
         }
 
-        // check if user is admin
-        if (req.user.role === "Admin") {
-            const retailer = await Retailer.findOne({ _id: book.retailerId });
-            retailer.listedBooks.pull(req.params.bookId);
-            await retailer.save();
 
-            await Book.deleteOne({ _id: req.params.bookId });
+        const retailer = await Retailer.findOne({ _id: book.retailerId });
+        retailer.listedBooks.pull(req.params.bookId);
+        await retailer.save();
 
-            res.status(204).json({ message: "Book has been deleted." });
-        }
-        else {
+        await Book.deleteOne({ _id: req.params.bookId });
 
-            const retailer = await Retailer.findOne({ userId: req.params.id });
+        res.status(204).json({ message: "Book has been deleted." });
 
-            // Fetch the user by userId
-            const user = await User.findById(req.params.id);
 
-            if (!retailer || retailer._id.toString() !== book.retailerId.toString()) {
-                return res.status(403).json({ message: "You are not authorized to delete this book" });
-            }
-
-            //Update the retailer's listedBooks
-            retailer.listedBooks.pull(req.params.bookId);
-            await retailer.save();
-
-            await Book.deleteOne({ _id: req.params.bookId });
-
-            res.status(204).json({ message: "Book has been deleted." });
-
-        }
 
     } catch (err) {
         next(err);
