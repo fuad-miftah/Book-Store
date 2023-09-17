@@ -37,8 +37,10 @@ export const verifyClient = (req, res, next) => {
 };
 
 export const verifyRetailer = (req, res, next) => {
+
     verifyToken(req, res, () => {
         if ((req.user.id === req.params.id && req.user.role == "Retailer") || req.user.role == "Admin") {
+            console.log("verifyRetailer: verified");
             next();
         } else {
             return next(createError(403, "You are not authorized!"));

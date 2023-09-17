@@ -13,7 +13,10 @@ const Dashboard = () => {
             navigate('/clientDashbord'); // Redirect to the Client Dashboard
         } else if (userInfo.role === 'Retailer') {
             navigate('/retailerDashboard'); // Redirect to the Retailer Dashboard
-        } else {
+        } else if (userInfo.role === 'Admin') {
+            navigate('/adminDashboard'); // Redirect to the Admin Dashboard
+        }
+        else {
             // Handle other roles or scenarios
             toast.error('Unsupported user role');
         }

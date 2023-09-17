@@ -2,15 +2,40 @@ import { useState, useEffect } from "react";
 import Dashboard from "./RetailerDashbordPages/Dashboard";
 import ListedBooks from "./RetailerDashbordPages/ListedBooks";
 import Salehistory from "./RetailerDashbordPages/SaleHistory";
-import UpdateProfile from "./RetailerDashbordPages/UpdateProfile";
+import UpdateProfile from "./CommonDashboardPages/UpdateProfile";
 import ListNewBook from "./RetailerDashbordPages/ListNewBook";
-import { Link } from "react-router-dom";
+import Cart from "./CommonDashboardPages/Cart";
+import Wishlist from "./CommonDashboardPages/Wishlist";
+import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import axiosInstance from "../utils/axiosInstance";
+import { useSelector } from "react-redux";
 
 export default function RetailerDashboard() {
+    const { userInfo } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
     const [active, setActive] = useState("Dashboard");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
+
+    useEffect(() => {
+        const verifyUserAuthentication = async () => {
+            try {
+                // Make an API call to your server to verify authentication
+                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                if (response.data.role !== "Retailer") {
+                    navigate("/");
+                }
+
+            } catch (error) {
+                // Handle authentication errors (e.g., token validation failed)
+                console.log("user is not authenticated");
+                navigate("/");
+            }
+        };
+
+        verifyUserAuthentication();
+    }, [navigate, userInfo.details._id]);
 
     const handleActive = (path) => {
         setActive(path);
@@ -73,6 +98,18 @@ export default function RetailerDashboard() {
                                     Listed Books
                                 </button>
                                 <button
+                                    onClick={() => handleActive("Cart")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    Cart
+                                </button>
+                                <button
+                                    onClick={() => handleActive("Wishlist")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    Wishlist Books
+                                </button>
+                                <button
                                     onClick={() => handleActive("Profile")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
@@ -87,6 +124,8 @@ export default function RetailerDashboard() {
                             {active === "ListNewBook" && <ListNewBook />}
                             {active === "SaleHistory" && <Salehistory />}
                             {active === "ListedBooks" && <ListedBooks />}
+                            {active === "Cart" && <Cart />}
+                            {active === "Wishlist" && <Wishlist />}
                             {active === "Profile" && <UpdateProfile />}
                         </div>
                     </div>
@@ -124,6 +163,18 @@ export default function RetailerDashboard() {
                                 Listed Books
                             </button>
                             <button
+                                onClick={() => handleActive("Cart")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                Cart
+                            </button>
+                            <button
+                                onClick={() => handleActive("Wishlist")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                Wishlist Books
+                            </button>
+                            <button
                                 onClick={() => handleActive("Profile")}
                                 className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                             >
@@ -137,6 +188,8 @@ export default function RetailerDashboard() {
                             {active === "ListNewBook" && <ListNewBook />}
                             {active === "SaleHistory" && <Salehistory />}
                             {active === "ListedBooks" && <ListedBooks />}
+                            {active === "Cart" && <Cart />}
+                            {active === "Wishlist" && <Wishlist />}
                             {active === "Profile" && <UpdateProfile />}
                         </div>
                     </div>

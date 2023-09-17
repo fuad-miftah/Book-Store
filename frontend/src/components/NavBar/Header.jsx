@@ -3,12 +3,34 @@ import { useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../store/authSlice";
+import { logoutAsync } from "../../store/authapiSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const [toggleMenu, setToggleMenu] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutAsync()).unwrap();
+      dispatch(logout());
+      toast.success("Logged out successfully");
+      navigate('/login');
+    } catch (err) {
+      if (err.message) {
+        toast.error(err.message);
+        navigate('/')
+      } else {
+        toast.error("An error occurred while logging out");
+        navigate('/')
+      }
+    }
+  };
 
 
   return (
@@ -70,14 +92,9 @@ const Header = () => {
           </div>
         </div>
         <NavbarItem href={userInfo != null ? "/Dashboard" : "/login"} icon={user} text={userInfo != null ? userInfo.details.username : "SignIn"} />
-        {
-          userInfo == null || userInfo.role !== "Retailer" ? <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" /> : null
-
-        }
-        {
-          userInfo == null || userInfo.role !== "Retailer" ? <NavbarItem href="/cart" icon={cart} text="$12.21" /> : null
-
-        }
+        <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
+        <NavbarItem href="/cart" icon={cart} text="$12.21" />
+        {userInfo != null && <button onClick={handleLogout} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">logout</button>}
 
         <div
           className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full "

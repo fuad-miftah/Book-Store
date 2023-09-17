@@ -1,16 +1,42 @@
 import { useState, useEffect } from "react";
+import Dashboard from "./RetailerDashbordPages/Dashboard";
+import AllListedBooks from "./AdminDashboardPages/AllListedBooks";
+import AllSalehistory from "./AdminDashboardPages/AllSaleHistory";
+import AllOrders from "./AdminDashboardPages/AllOrders";
+import UpdateProfile from "./CommonDashboardPages/UpdateProfile";
+import AllUsers from "./AdminDashboardPages/AllUsers";
 import Cart from "./CommonDashboardPages/Cart";
 import Wishlist from "./CommonDashboardPages/Wishlist";
-import Dashboard from "./ClientDashbordPages/Dashboard";
-import Order from "./ClientDashbordPages/Order";
-import UpdateProfile from "./ClientDashbordPages/UpdateProfile";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import axiosInstance from "../utils/axiosInstance";
 
-export default function ClientDashboard() {
+export default function AdminDashboard() {
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.auth);
     const [active, setActive] = useState("Dashboard");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
+
+    useEffect(() => {
+        const verifyUserAuthentication = async () => {
+            try {
+                // Make an API call to your server to verify authentication
+                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                if (response.data.role !== "Admin") {
+                    navigate("/");
+                }
+
+            } catch (error) {
+                // Handle authentication errors (e.g., token validation failed)
+                console.log("user is not authenticated");
+                navigate("/");
+            }
+        };
+
+        verifyUserAuthentication();
+    }, [navigate, userInfo.details._id]); // The empty dependency array ensures this effect runs only once
 
     const handleActive = (path) => {
         setActive(path);
@@ -55,6 +81,30 @@ export default function ClientDashboard() {
                                     Dashboard
                                 </button>
                                 <button
+                                    onClick={() => handleActive("AllUsers")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    All Users
+                                </button>
+                                <button
+                                    onClick={() => handleActive("AllSaleHistory")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    All Sale History
+                                </button>
+                                <button
+                                    onClick={() => handleActive("AllListedBooks")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    All Listed Books
+                                </button>
+                                <button
+                                    onClick={() => handleActive("AllOrders")}
+                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                                >
+                                    All Orders
+                                </button>
+                                <button
                                     onClick={() => handleActive("Cart")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
@@ -64,13 +114,7 @@ export default function ClientDashboard() {
                                     onClick={() => handleActive("Wishlist")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
-                                    Wishlist
-                                </button>
-                                <button
-                                    onClick={() => handleActive("Order")}
-                                    className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
-                                >
-                                    Order
+                                    Wishlist Books
                                 </button>
                                 <button
                                     onClick={() => handleActive("Profile")}
@@ -84,9 +128,12 @@ export default function ClientDashboard() {
                     <div className={`w-full ${isSmallScreen ? "bg-gray-100" : "bg-gray-800"} p-8`}>
                         <div className="flex">
                             {active === "Dashboard" && <Dashboard />}
+                            {active === "AllUsers" && <AllUsers />}
+                            {active === "AllSaleHistory" && <AllSalehistory />}
+                            {active === "AllListedBooks" && <AllListedBooks />}
+                            {active === "AllOrders" && <AllOrders />}
                             {active === "Cart" && <Cart />}
                             {active === "Wishlist" && <Wishlist />}
-                            {active === "Order" && <Order />}
                             {active === "Profile" && <UpdateProfile />}
                         </div>
                     </div>
@@ -106,6 +153,30 @@ export default function ClientDashboard() {
                                 Dashboard
                             </button>
                             <button
+                                onClick={() => handleActive("AllUsers")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                All Users
+                            </button>
+                            <button
+                                onClick={() => handleActive("AllSaleHistory")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                All Sale History
+                            </button>
+                            <button
+                                onClick={() => handleActive("AllListedBooks")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                All Listed Books
+                            </button>
+                            <button
+                                onClick={() => handleActive("AllOrders")}
+                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
+                            >
+                                All Orders
+                            </button>
+                            <button
                                 onClick={() => handleActive("Cart")}
                                 className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                             >
@@ -115,13 +186,7 @@ export default function ClientDashboard() {
                                 onClick={() => handleActive("Wishlist")}
                                 className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                             >
-                                Wishlist
-                            </button>
-                            <button
-                                onClick={() => handleActive("Order")}
-                                className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
-                            >
-                                Order
+                                Wishlist Books
                             </button>
                             <button
                                 onClick={() => handleActive("Profile")}
@@ -131,19 +196,23 @@ export default function ClientDashboard() {
                             </button>
                         </div>
                     </div>
-
                     <div className="w-3/4 bg-gray-100 p-8">
                         <div className="flex">
                             {active === "Dashboard" && <Dashboard />}
+                            {active === "AllUsers" && <AllUsers />}
+                            {active === "AllSaleHistory" && <AllSalehistory />}
+                            {active === "AllListedBooks" && <AllListedBooks />}
+                            {active === "AllOrders" && <AllOrders />}
                             {active === "Cart" && <Cart />}
                             {active === "Wishlist" && <Wishlist />}
-                            {active === "Order" && <Order />}
                             {active === "Profile" && <UpdateProfile />}
                         </div>
                     </div>
+
                 </div>)
             }
 
         </div>
-    );
+
+    )
 }

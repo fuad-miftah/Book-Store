@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromWishlist } from '../store/wishlistSlice';
+import { removeFromWishlist } from '../../store/wishlistSlice';
 
 export default function Whishlist() {
     // Access the cart state from Redux
@@ -21,7 +21,7 @@ export default function Whishlist() {
             ) : (
                 <ul>
                     {cart.map((item) => (
-                        <div className="flex flex-row flex-wrap mx-10">
+                        <div key={item.bookId} className="flex flex-row flex-wrap mx-10">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>

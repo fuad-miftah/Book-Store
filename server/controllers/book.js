@@ -73,26 +73,37 @@ export const deleteBook = async (req, res, next) => {
             return res.status(404).json({ message: "Book not found" });
         }
 
-        // Check if the userId of the book's retailer matches the authenticated user's userId
-        const retailer = await Retailer.findOne({ userId: req.params.id });
+        // check if user is admin
+        if (req.user.role === "Admin") {
+            const retailer = await Retailer.findOne({ _id: book.retailerId });
+            retailer.listedBooks.pull(req.params.bookId);
+            await retailer.save();
 
-        // Fetch the user by userId
-        const user = await User.findById(req.params.id);
+            await Book.deleteOne({ _id: req.params.bookId });
 
-        // Check if the user is an admin
-        const isAdmin = user.role === "Admin";
+            res.status(204).json({ message: "Book has been deleted." });
+        }
+        else {
 
-        if ((!retailer || retailer._id.toString() !== book.retailerId.toString()) && !isAdmin) {
-            return res.status(403).json({ message: "You are not authorized to delete this book" });
+            const retailer = await Retailer.findOne({ userId: req.params.id });
+
+            // Fetch the user by userId
+            const user = await User.findById(req.params.id);
+
+            if (!retailer || retailer._id.toString() !== book.retailerId.toString()) {
+                return res.status(403).json({ message: "You are not authorized to delete this book" });
+            }
+
+            //Update the retailer's listedBooks
+            retailer.listedBooks.pull(req.params.bookId);
+            await retailer.save();
+
+            await Book.deleteOne({ _id: req.params.bookId });
+
+            res.status(204).json({ message: "Book has been deleted." });
+
         }
 
-        //Update the retailer's listedBooks
-        retailer.listedBooks.pull(req.params.bookId);
-        await retailer.save();
-
-        await Book.deleteOne({ _id: req.params.bookId });
-
-        res.status(204).json({ message: "Book has been deleted." });
     } catch (err) {
         next(err);
     }

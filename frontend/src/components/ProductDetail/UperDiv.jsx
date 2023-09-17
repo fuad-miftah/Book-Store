@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 export default function UperDiv({ data }) {
 
-    console.log("upperdiv - ", data);
     const dispatch = useDispatch();
 
     const addToCart = (id, price, totalPrice, quantity, coverImg, title) => {
@@ -58,9 +57,10 @@ export default function UperDiv({ data }) {
             setShowError("");
         }
 
-        else
+        else {
             setShowError("Quantity is more than the stock");
-        toast.error("Quantity is more than the stock");
+            toast.error("Quantity is more than the stock");
+        }
     }
 
     const decreaseQuantity = () => {
@@ -70,15 +70,16 @@ export default function UperDiv({ data }) {
             setDiscount((data.price * newBuyQuantity * 15) / 100);
             setShowError("");
         }
-        else
+        else {
             setShowError("Quantity can't be less than 1");
-        toast.error("Quantity can't be less than 1");
+            toast.error("Quantity can't be less than 1");
+        }
     }
 
     return (
         <div className="flex flex-row flex-wrap w-screen p-10">
 
-            <img class="rounded-t-lg w-[40%] h-[500px]" src={data.coverImg} alt="" />
+            <img className="rounded-t-lg w-[40%] h-[500px]" src={data.coverImg} alt="" />
 
             <div className="flex flex-col p-10 ">
                 <div className="flex flex-wrap flex-col space-y-8">
@@ -91,7 +92,7 @@ export default function UperDiv({ data }) {
                     </div>
                     <p className="text-4xl">{(data.price * buyQuantity) - discount} Birr</p>
                 </div>
-                <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div>
                     <div className="flex flex-row flex-wrap items-center">
                         <button className="inline bg-gray-200 h-[40px] w-[40px] p-2" onClick={decreaseQuantity}><MinusIcon /></button>
@@ -100,7 +101,6 @@ export default function UperDiv({ data }) {
                     </div>
 
                     <p className="text-gray-500">{showError}</p>
-                    {/* <p className="text-gray-500">{cart}</p> */}
                     <div className="my-2">
                         <button className="bg-green-700 hover:bg-green-600 text-white w-full h-[40px]" onClick={() => addToCart(data._id, data.price, ((data.price * buyQuantity) - discount), buyQuantity, data.coverImg, data.title)}>Add to Cart</button>
                     </div>
