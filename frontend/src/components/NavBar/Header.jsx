@@ -17,7 +17,6 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      console.log("logout");
       await dispatch(logoutAsync()).unwrap();
       dispatch(logout());
       toast.success("Logged out successfully");
@@ -29,7 +28,6 @@ const Header = () => {
       } else {
         toast.error("An error occurred while logging out");
         navigate('/')
-        console.error("An error occurred while logging in:", err);
       }
     }
   };

@@ -6,13 +6,36 @@ import UpdateProfile from "./CommonDashboardPages/UpdateProfile";
 import ListNewBook from "./RetailerDashbordPages/ListNewBook";
 import Cart from "./CommonDashboardPages/Cart";
 import Wishlist from "./CommonDashboardPages/Wishlist";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import axiosInstance from "../utils/axiosInstance";
+import { useSelector } from "react-redux";
 
 export default function RetailerDashboard() {
+    const { userInfo } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
     const [active, setActive] = useState("Dashboard");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
+
+    useEffect(() => {
+        const verifyUserAuthentication = async () => {
+            try {
+                // Make an API call to your server to verify authentication
+                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                if (response.data.role !== "Retailer") {
+                    navigate("/");
+                }
+
+            } catch (error) {
+                // Handle authentication errors (e.g., token validation failed)
+                console.log("user is not authenticated");
+                navigate("/");
+            }
+        };
+
+        verifyUserAuthentication();
+    }, [navigate, userInfo.details._id]);
 
     const handleActive = (path) => {
         setActive(path);

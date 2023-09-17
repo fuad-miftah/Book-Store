@@ -11,6 +11,7 @@ function Footer() {
       behavior: "smooth", // Optional: Add smooth scrolling animation
     });
   };
+  const currentYear = new Date().getFullYear();
   return (
     <div className="p-10 text-black-800">
       <div className="w-full pt-10 pr-10 pl-10 mx-auto">
@@ -54,7 +55,7 @@ function Footer() {
         </div>
       </div>
       <div className="w-full text-gray-500 px-10">
-        @2020 All rights reserved
+        {currentYear} All rights reserved
       </div>
     </div>
   );

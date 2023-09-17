@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 export default function UperDiv({ data }) {
 
-    console.log("upperdiv - ", data);
     const dispatch = useDispatch();
 
     const addToCart = (id, price, totalPrice, quantity, coverImg, title) => {
@@ -102,7 +101,6 @@ export default function UperDiv({ data }) {
                     </div>
 
                     <p className="text-gray-500">{showError}</p>
-                    {/* <p className="text-gray-500">{cart}</p> */}
                     <div className="my-2">
                         <button className="bg-green-700 hover:bg-green-600 text-white w-full h-[40px]" onClick={() => addToCart(data._id, data.price, ((data.price * buyQuantity) - discount), buyQuantity, data.coverImg, data.title)}>Add to Cart</button>
                     </div>

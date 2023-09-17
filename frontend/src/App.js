@@ -62,8 +62,6 @@ function App() {
     dispatch(getBooks());
   }, [dispatch]);
 
-  console.log(userInfo);
-  console.log(userInfo === true);
 
   if (status === StatusCode.LOADING) {
     return <p>Loading...</p>;

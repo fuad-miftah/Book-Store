@@ -7,13 +7,36 @@ import UpdateProfile from "./CommonDashboardPages/UpdateProfile";
 import AllUsers from "./AdminDashboardPages/AllUsers";
 import Cart from "./CommonDashboardPages/Cart";
 import Wishlist from "./CommonDashboardPages/Wishlist";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import axiosInstance from "../utils/axiosInstance";
 
 export default function AdminDashboard() {
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.auth);
     const [active, setActive] = useState("Dashboard");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
+
+    useEffect(() => {
+        const verifyUserAuthentication = async () => {
+            try {
+                // Make an API call to your server to verify authentication
+                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                if (response.data.role !== "Admin") {
+                    navigate("/");
+                }
+
+            } catch (error) {
+                // Handle authentication errors (e.g., token validation failed)
+                console.log("user is not authenticated");
+                navigate("/");
+            }
+        };
+
+        verifyUserAuthentication();
+    }, [navigate, userInfo.details._id]); // The empty dependency array ensures this effect runs only once
 
     const handleActive = (path) => {
         setActive(path);

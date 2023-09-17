@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Hero from "../components/Home/Hero";
 import OfferCard from "../components/Home/OfferCard";
 import Subtitle from "../components/Home/Subtitle";
-import Carosel from "../components/Home/Carosel";
+import CustomCarosel from '../components/Home/CustomCarosel';
 import { useSelector } from "react-redux";
 import StatusCode from "../utils/StatusCode";
 import FlexCard from '../components/Home/FlexCard';
@@ -40,14 +40,15 @@ export default function Home() {
       <Hero />
       <OfferCard />
       <Subtitle title="Featured Items" />
-      {isWindowWidthGreaterThan1200px() ? (
-        <Carosel caroselData={data} />
+      {isWindowWidthGreaterThan1200px() && data.length > 6 ? (
+        <CustomCarosel data={data} />
+
       ) : (
         <FlexCard data={data} />
       )}
       <Subtitle title="Best Seller Items" />
-      {isWindowWidthGreaterThan1200px() ? (
-        <Carosel caroselData={featuredData} />
+      {isWindowWidthGreaterThan1200px() && data.length > 6 ? (
+        <CustomCarosel data={data} />
       ) : (
         <FlexCard data={featuredData} />
       )}

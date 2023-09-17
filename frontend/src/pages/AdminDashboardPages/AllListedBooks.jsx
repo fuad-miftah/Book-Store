@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector } from 'react-redux';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { deleteBookByRetailerId } from "../../store/bookSlice";
 
 export default function AllListedBooks() {
-    const dispatch = useDispatch();
     const axiosInstance = axios.create({
         withCredentials: true, // Include cookies in the request
     });
     const { userInfo } = useSelector((state) => state.auth);
-    const userId = encodeURIComponent(userInfo.details._id);
 
-    const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
+    const { data } = useSelector(state => state.books);
     const [books, setBooks] = useState(data);
 
 
@@ -43,7 +40,7 @@ export default function AllListedBooks() {
             ) : (
                 <ul>
                     {books.map((item) => (
-                        <div className="flex flex-row flex-wrap mx-10">
+                        <div key={item._id} className="flex flex-row flex-wrap mx-10">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>

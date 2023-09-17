@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Subtitle from "../components/Home/Subtitle";
-import Carosel from "../components/Home/Carosel";
+import CustomCarosel from '../components/Home/CustomCarosel';
 import UperDiv from "../components/ProductDetail/UperDiv";
 import StatusCode from "../utils/StatusCode";
 import FlexCard from '../components/Home/FlexCard';
@@ -61,14 +61,14 @@ export default function ProductDetail() {
       <div>
         <UperDiv data={singleProduct} />
         <Subtitle title="Featured Items" />
-        {isWindowWidthGreaterThan1200px() ? (
-          <Carosel caroselData={data} />
+        {isWindowWidthGreaterThan1200px() && data.length > 6 ? (
+          <CustomCarosel data={data} />
         ) : (
           <FlexCard data={data} />
         )}
         <Subtitle title="Best Seller Items" />
-        {isWindowWidthGreaterThan1200px() ? (
-          <Carosel caroselData={featuredData} />
+        {isWindowWidthGreaterThan1200px() && featuredData.length > 6 ? (
+          <CustomCarosel data={featuredData} />
         ) : (
           <FlexCard data={featuredData} />
         )}
