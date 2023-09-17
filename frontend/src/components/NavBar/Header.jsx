@@ -1,36 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import NavbarItem from "./NavbarItem";
+import { Link} from "react-router-dom";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../store/authSlice";
-import { logoutAsync } from "../../store/authapiSlice";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.auth);
+
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await dispatch(logoutAsync()).unwrap();
-      dispatch(logout());
-      toast.success("Logged out successfully");
-      navigate('/login');
-    } catch (err) {
-      if (err.message) {
-        toast.error(err.message);
-        navigate('/')
-      } else {
-        toast.error("An error occurred while logging out");
-        navigate('/')
-      }
-    }
-  };
 
 
   return (
@@ -49,15 +27,16 @@ const Header = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-center shrink-0 space-y-4 space-x-4">
-          <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
-            <Link to="/">
-              <img
-                className=" md:w-200 md:h-50 relative"
-                src={logo}
-                alt="logo"
-              />
-            </Link>
-          </div>
+        <Link to="/" activeClassName="active">
+          
+      <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
+        <img
+          className="md:w-200 md:h-50 relative"
+          src={logo}
+          alt="logo"
+        />
+      </div>
+    </Link>
           <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-2 shrink-0 space-x-2">
             <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
               <input
@@ -91,17 +70,16 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <NavbarItem href={userInfo != null ? "/Dashboard" : "/login"} icon={user} text={userInfo != null ? userInfo.details.username : "SignIn"} />
-        <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
-        <NavbarItem href="/cart" icon={cart} text="$12.21" />
-        {userInfo != null && <button onClick={handleLogout} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">logout</button>}
+        <NavbarItem to="/login" icon={user} text="SignIn" />
+        <NavbarItem to="/favorite" icon={wishlist} text="Wishlist" />
+        <NavbarItem to="/cart" icon={cart} text="Cart" />
 
         <div
-          className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full "
+          className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full left-0 "
             }`}
         >
 
-          <div className="flex flex-col gap-1 font-normal tracking-wider justify-start shrink-0 space-x-2">
+          <div className="w-full flex flex-col gap-1 font-normal tracking-wider justify-start left-0 shrink-0 space-x-2">
             <a href="/signin" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-green-200 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white" aria-current="page">
               <div className="flex flex-row items-center justify-start">
                 <img className="w-5 h-5" src={user} alt="Signin" />
@@ -109,19 +87,19 @@ const Header = () => {
               </div>
             </a>
 
-            <a href="/signin" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
-              <div className="flex flex-row items-center justify-start">
-                <img className="w-5 h-5" src={wishlist} alt="Wishlist" />
-                <span className="ml-2">Wishlist</span>
-              </div>
-            </a>
+            <Link to="/favorite" activeClassName="active" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
+      <div className="flex flex-row items-center justify-start">
+        <img className="w-5 h-5" src={wishlist} alt="Wishlist" />
+        <span className="ml-2">Wishlist</span>
+      </div>
+    </Link>
 
-            <a href="/signin" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
+            <Link to="/cart" activeClassName="active" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
               <div className="flex flex-row items-center justify-start">
                 <img className="w-5 h-5" src={cart} alt="Cart" />
                 <span className="ml-2">Cart</span>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

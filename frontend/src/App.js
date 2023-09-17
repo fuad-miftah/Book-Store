@@ -17,6 +17,7 @@ import ClientDashboard from "./pages/ClientDashboard";
 import RetailerDashboard from "./pages/RetailerDashbord";
 import Dashboard from "./pages/Dashbord";
 import AdminDashboard from "./pages/AdminDashboard";
+import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
 
 
@@ -83,6 +84,7 @@ function App() {
           <Route path="wishlist" element={<Whishlist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />
+          <Route  path="/checkout" element={<Checkout/>}/>
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={
             <ProtectedRoute>
