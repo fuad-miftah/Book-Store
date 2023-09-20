@@ -16,7 +16,7 @@ router.put('/:id/:saleId', verifyRetailer, updateSale);
 router.get('/all/:id', verifyAdmin, getAllSales);
 
 // Get sales by retailer ID
-router.get('/retailer/:id', getRetailerSales);
+router.get('/retailer/:id', verifyRetailer, getRetailerSales);
 
 //Get sale By ID
 router.get('/:id/:saleId', verifyRetailer, getSaleById);

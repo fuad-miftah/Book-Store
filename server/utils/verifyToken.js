@@ -31,7 +31,6 @@ export const verifyClient = (req, res, next) => {
         if ((req.user.id === req.params.id && req.user.role == "Client") || req.user.role == "Admin") {
             next();
         } else {
-            console.log("verifyClient: not verified");
             return next(createError(403, "You are not authorized!"));
         }
     });

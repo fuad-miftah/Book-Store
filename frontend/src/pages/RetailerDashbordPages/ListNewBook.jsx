@@ -37,7 +37,7 @@ export default function ListNewBook() {
         try {
             // Send a POST request to your backend to create a new book
             const response = await axiosInstance.post(`http://localhost:5555/api/book/${userInfo.details._id}`, formData);
-            console.log("Book created successfully:", response.data);
+            console.log("Book created successfully:", response.data.data);
 
             // Clear the form after successful submission
             setFormData({

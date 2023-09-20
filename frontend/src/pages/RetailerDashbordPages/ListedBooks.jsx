@@ -25,7 +25,7 @@ export default function ListedBooks() {
 
                 // Update the books state with the fetched data
                 console.log("Books listed by the retailer:", response.data);
-                setBooks(response.data);
+                setBooks(response.data.data);
             } catch (error) {
                 console.error("Error fetching retailer's books:", error);
             } finally {
