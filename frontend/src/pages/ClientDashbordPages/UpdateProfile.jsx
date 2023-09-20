@@ -25,7 +25,7 @@ export default function UpdateProfile() {
             try {
                 setIsLoading(true);
                 const response = await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
-                const user = response.data;
+                const user = response.data.data;
 
                 setUserData({
                     firstName: user.firstName,

@@ -23,7 +23,7 @@ export default function RetailerDashboard() {
             try {
                 // Make an API call to your server to verify authentication
                 const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
-                if (response.data.role !== "Retailer") {
+                if (response.data.data.role !== "Retailer") {
                     navigate("/");
                 }
 

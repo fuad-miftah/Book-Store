@@ -14,16 +14,17 @@ export default function AllUserss() {
 
     useEffect(() => {
         // Fetch books listed by the retailer with the given retailerId
+        console.log("access_token", userInfo.access_token);
         const fetchAllUsers = async () => {
             try {
                 setIsLoading(true);
                 const response = await axiosInstance.get(
                     `http://localhost:5555/api/user`
                 );
-
+                console.log("response", response);
                 // Update the books state with the fetched data
                 console.log("Users:", response.data);
-                setUsers(response.data);
+                setUsers(response.data.data);
             } catch (error) {
                 console.error("Error fetching users:", error);
             } finally {
@@ -32,7 +33,7 @@ export default function AllUserss() {
         };
 
         fetchAllUsers();
-    }, [axiosInstance, userId]);
+    }, []);
 
 
     const deleteUser = async (userId) => {

@@ -36,8 +36,9 @@ export const { fetchBooks } = bookSlice.actions;
 export default bookSlice.reducer;
 
 export const getBooks = createAsyncThunk("products/get", async () => {
-
-    const res = await axios.get('/book');
-    return res.data;
+    console.log("entered");
+    const res = await axios.get('http://localhost:5555/api/book');
+    console.log(res.data.data);
+    return res.data.data;
 })
 

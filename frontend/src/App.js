@@ -32,7 +32,7 @@ function App() {
       const verifyUserAuthentication = async () => {
         try {
           // Make an API call to your server to verify authentication
-          await axiosInstance.get(`/user/${userInfo.details._id}`);
+          await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
           console.log("user is authenticated");
           setIsAuthenticated(true); // User is authenticated
         } catch (error) {
@@ -59,8 +59,10 @@ function App() {
 
 
   const dispatch = useDispatch();
+  console.log("dispatched1");
   useEffect(() => {
     dispatch(getBooks());
+    console.log("dispatched");
   }, [dispatch]);
 
 

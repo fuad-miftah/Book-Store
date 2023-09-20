@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import NavbarItem from "./NavbarItem";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
 
 
@@ -15,7 +15,7 @@ const Header = () => {
     <nav className="flex flex-row px-4 justify-start items-center md:w-auto md:px-8 bg-white border-gray-200 dark:bg-gray-900">
       <div className="w-full flex md:relative lg:flex-row p-4 items-center justify-start lg:justify-between gap-8">
         <div className="flex left-0 md:w-200 md:h-50 items-center justify-start ">
-          <a href="/dashboard"
+          <a href="/"
             className="hidden sm:hidden md:block w-32 items-center ">
             <img
               className="w-full h-7 "
@@ -27,16 +27,16 @@ const Header = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-center shrink-0 space-y-4 space-x-4">
-        <Link to="/" activeClassName="active">
-          
-      <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
-        <img
-          className="md:w-200 md:h-50 relative"
-          src={logo}
-          alt="logo"
-        />
-      </div>
-    </Link>
+          <Link to="/" activeClassName="active">
+
+            <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between">
+              <img
+                className="md:w-200 md:h-50 relative"
+                src={logo}
+                alt="logo"
+              />
+            </div>
+          </Link>
           <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-2 shrink-0 space-x-2">
             <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
               <input
@@ -70,9 +70,9 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <NavbarItem to="/login" icon={user} text="SignIn" />
-        <NavbarItem to="/favorite" icon={wishlist} text="Wishlist" />
-        <NavbarItem to="/cart" icon={cart} text="Cart" />
+        <NavbarItem href="/login" icon={user} text="SignIn" />
+        <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
+        <NavbarItem href="/cart" icon={cart} text="Cart" />
 
         <div
           className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full left-0 "
@@ -88,11 +88,11 @@ const Header = () => {
             </a>
 
             <Link to="/favorite" activeClassName="active" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
-      <div className="flex flex-row items-center justify-start">
-        <img className="w-5 h-5" src={wishlist} alt="Wishlist" />
-        <span className="ml-2">Wishlist</span>
-      </div>
-    </Link>
+              <div className="flex flex-row items-center justify-start">
+                <img className="w-5 h-5" src={wishlist} alt="Wishlist" />
+                <span className="ml-2">Wishlist</span>
+              </div>
+            </Link>
 
             <Link to="/cart" activeClassName="active" className="block border-b-2 py-2 pl-3 pr-4 text-gray-700 bg-gray-100 rounded md:bg-transparent md:text-gray-700 md:p-0 dark:text-white">
               <div className="flex flex-row items-center justify-start">

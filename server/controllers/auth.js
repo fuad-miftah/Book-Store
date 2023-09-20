@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import Client from "../models/Client.js";
 import Retailer from "../models/Retailer.js";
 import bcrypt from "bcrypt";
+import { createSuccess } from "../utils/success.js";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
@@ -25,11 +26,12 @@ export const register = async (req, res, next) => {
       const newRetailer = new Retailer({ userId: savedUser._id });
       await newRetailer.save();
     }
-    res.status(201).send("User has been created.");
+    res.status(201).json(createSuccess("User has been created.", savedUser));
   } catch (err) {
     next(err);
   }
 };
+
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
@@ -59,7 +61,7 @@ export const login = async (req, res, next) => {
         path: '/',
       })
       .status(200)
-      .json({ details: { ...otherDetails }, role, access_token });
+      .json(createSuccess("Login successful.", { details: { ...otherDetails }, role, access_token }));
   } catch (err) {
     next(err);
   }

@@ -14,9 +14,9 @@ const initialState = {
 export const loginAsync = createAsyncThunk("user/login", async (userData) => {
     try {
         const response = await axios.post(`${USERS_URL}/login`, userData);
-        const { access_token } = response.data;
+        const { access_token } = response.data.data;
         document.cookie = `access_token=${access_token}; path=/`;
-        return response.data;
+        return response.data.data;
     } catch (error) {
         throw error.response.data;
     }

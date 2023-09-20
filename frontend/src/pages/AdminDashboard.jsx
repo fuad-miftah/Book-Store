@@ -24,7 +24,7 @@ export default function AdminDashboard() {
             try {
                 // Make an API call to your server to verify authentication
                 const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
-                if (response.data.role !== "Admin") {
+                if (response.data.data.role !== "Admin") {
                     navigate("/");
                 }
 

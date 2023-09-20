@@ -11,19 +11,19 @@ import { verifyAdmin, verifyRetailer, verifyToken, verifyUser } from "../utils/v
 
 const router = express.Router();
 
-//CREATE
+//CREATE Based on User Id
 router.post("/:id", verifyRetailer, createBook);
 
-//UPDATE
+//UPDATE Using User Id and BookId
 router.put("/:id/:bookId", verifyRetailer, updateBook);
 
-//DELETE
+//DELETE Using UserId and BookId
 router.delete("/:id/:bookId", verifyRetailer, deleteBook);
 
 //GET
 router.get("/:id", getBook);
 
-//GET retailer books
+//GET retailer books using User Id
 router.get("/retailer/:id", verifyRetailer, getRetailerBook);
 
 //GET ALL
