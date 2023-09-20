@@ -110,7 +110,7 @@ const Siginup = () => {
                             required: true,
                             minLength: 8,
                             message:
-                              "password must be greater than 8 charachters",
+                              "password must be greater than 8 characters",
                           })}
                           aria-invalid={errors.password ? "true" : "false"}
                           placeholder="Create a password"

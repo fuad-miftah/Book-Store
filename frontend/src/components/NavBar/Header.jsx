@@ -1,10 +1,14 @@
 import React from "react";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
+import Search from "../Search";
 
 const Header = () => {
   const handleLogoClick = () => {
     console.log("Logo clicked!");
   };
+  const handleClick=()=>{
+    <Search />
+  }
   return (
     <div className=" flex flex-col  w-96 h-24 relative">
       <div className=" w-96 h-24 left-0 top-0 absolute bg-white" />
@@ -25,11 +29,12 @@ const Header = () => {
           />
         </div>
       </a>
-      <div className="w-96  h-12 px-2  left-[420px] top-[30px] absolute">
+      <div className="w-96  h-12 px-2  left-[420px] top-[30px] absolute" onClick={handleClick()}>
         <input
           type="text"
           name="query"
           placeholder="Search..."
+          onClick={handleClick()}
           className="w-full h-full pl-10 pr-4 py-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700"
         />
 
