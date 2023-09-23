@@ -3,6 +3,7 @@ import { useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { Link } from "react-router-dom";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
+import Search from "../Search";
 
 
 const Header = () => {
