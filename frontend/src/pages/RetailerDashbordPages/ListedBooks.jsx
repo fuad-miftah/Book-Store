@@ -58,25 +58,25 @@ export default function ListedBooks() {
     if (isLoading) return (<p>Loading...</p>);
 
     return (
-        <div>
-            <h1 className='text-4xl font-bold mx-20'>Your Listed Books</h1>
+        <div className="font-serif bg-blue-100 rounded-3xl pb-12">
+            <h1 className='text-4xl font-bold my-2 text-center'>Your Listed Books</h1>
 
             {books != null && books.length === 0 ? (
-                <p className='text-xl font-medium m-20'>Your Listed books is empty</p>
+                <p className='text-2xl font-serif font-medium text-center py-2'>Your Listed books is empty</p>
             ) : (
-                <ul>
-                    {books.map((item) => (
-                        <div className="flex flex-row flex-wrap mx-10">
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {books.map((item, index) => (
+                        <div key={index} className="flex flex-wrap mx-5 bg-gray-50 shadow-lg shadow-black rounded-2xl">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>
                             <div className='m-3 space-y-4 md:m-8'>
                                 <h2 className='text-4xl font-medium'>{item.title}</h2>
-                                <p className="text-xl">Author: {item.author}</p>
-                                <p className="text-xl">Price: ${item.price}</p>
-                                <p className="text-xl">Quantity: {item.quantity}</p>
-                                <p className="text-xl">Sell Count: {item.sellCount}</p>
-                                <p className="text-xl">Featured: {item.featured ? "Yes" : "No"}</p>
+                                <p className="text-xl"><span className="font-bold">Author: </span> {item.author}</p>
+                                <p className="text-xl"><span className="font-bold">Price: </span> ${item.price}</p>
+                                <p className="text-xl"><span className="font-bold">Quantity: </span> {item.quantity}</p>
+                                <p className="text-xl"><span className="font-bold">Sell Count: </span> {item.sellCount}</p>
+                                <p className="text-xl"><span className="font-bold">Featured: </span> {item.featured ? "Yes" : "No"}</p>
                                 <button type="button" className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => removeFromListedBooks(item._id)}>Remove</button>
                             </div>
                         </div>

@@ -14,15 +14,15 @@ export default function Cart() {
     };
 
     return (
-        <div>
-            <h1 className='text-4xl font-bold mx-20'>Your Cart</h1>
+        <div className="font-serif bg-blue-100 rounded-3xl pb-12">
+            <h1 className='text-4xl font-bold my-2 text-center'>Your Cart</h1>
             {cart.length === 0 ? (
-                <p className='text-xl font-medium m-20'>Your cart is empty</p>
+                <p className='text-2xl font-medium m-20 text-blue-800'>Your cart is empty</p>
             ) : (
-                <ul>
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     {cart.map((item) => (
 
-                        <div key={item.bookId} className="flex flex-row flex-wrap mx-10">
+                        <div key={item.bookId} className="flex flex-wrap mx-5 bg-gray-50 shadow-lg shadow-black rounded-2xl">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>

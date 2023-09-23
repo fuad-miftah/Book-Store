@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import image from "../../assets/profile.png"
 
 export default function UpdateProfile() {
     const axiosInstance = axios.create({
@@ -66,8 +67,10 @@ export default function UpdateProfile() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen">
-            <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
+        <div className="rounded-2xl  grid grid-cols-1 xl:grid-cols-2 font-serif gap-5 py-5 px-10 w-full shadow-2xl shadow-black">
+           <img src={image} alt="images of the books" className="h-full"/>
+           <div>
+           <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
@@ -145,6 +148,7 @@ export default function UpdateProfile() {
                     <button className="bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg w-full" type="submit">Update Profile</button>
                 </form>
             )}
+           </div>
         </div>
     );
 }

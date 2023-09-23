@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import axiosInstance from "../utils/axiosInstance";
 import { useSelector } from "react-redux";
+import cart from '../assets/Shopping-cart.svg';
 
 export default function RetailerDashboard() {
     const { userInfo } = useSelector((state) => state.auth);
@@ -61,7 +62,7 @@ export default function RetailerDashboard() {
     return (
         <div>
             {
-                isSmallScreen && (<div>
+                isSmallScreen && (<div  className="sticky top-0">
                     <div className="w-full bg-gray-800 text-white py-4">
                         <div className="flex justify-between items-center px-4">
                             <button onClick={toggleSidebar} className="text-3xl text-green-500">
@@ -72,49 +73,70 @@ export default function RetailerDashboard() {
                             </Link>
                         </div>
                         {showSidebar && (
-                            <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-start justify-center sm:pl-20 xs:pl-20 pl-4 py-4 ">
+                                <div className="flex justify-between items-center">
+                                    <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("Dashboard")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Dashboard
                                 </button>
+                                </div>
+                                <div className="flex justify-start items-start">
+                                <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("ListNewBook")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     List New Book
                                 </button>
+                                </div>
+                                <div className="flex justify-start items-start">
+                                <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("SaleHistory")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Sale History
                                 </button>
-                                <button
+                                </div>
+                                <div className="flex justify-start items-start">
+                                    <img src={cart} alt="list of books" className="w-10 h-10"/>
+                                    <button
                                     onClick={() => handleActive("ListedBooks")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Listed Books
                                 </button>
+                                </div>
+                                <div className="flex justify-start items-start">
+                                <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("Cart")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Cart
                                 </button>
+                                </div>
+                                <div className="flex justify-start items-start">
+                                <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("Wishlist")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Wishlist Books
                                 </button>
+                                </div>
+                                <div className="flex justify-start items-start">
+                                <img src={cart} alt="cart logo" className="w-10 h-10"/>
                                 <button
                                     onClick={() => handleActive("Profile")}
                                     className="text-2xl font-bold text-green-500 mb-4 hover:bg-green-700 hover:text-white px-6 py-2 rounded-full transition duration-300"
                                 >
                                     Profile
                                 </button>
+                                </div>
                             </div>
                         )}
                     </div>
