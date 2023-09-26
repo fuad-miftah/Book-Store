@@ -45,7 +45,7 @@ export default function UpdateProfile() {
         };
 
         fetchUserData();
-    }, []);
+    }, [userInfo.details._id]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

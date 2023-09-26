@@ -64,9 +64,9 @@ export default function ListedBooks() {
             {books != null && books.length === 0 ? (
                 <p className='text-xl font-medium m-20'>Your Listed books is empty</p>
             ) : (
-                <ul>
+                <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-between items-center">
                     {books.map((item) => (
-                        <div className="flex flex-row flex-wrap mx-10">
+                        <div className="flex flex-wrap shadow-2xl shadow-black rounded">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>
