@@ -32,12 +32,12 @@ function App() {
     useEffect(() => {
       const verifyUserAuthentication = async () => {
         try {
-        const headers = {
-          Authorization: `Bearer ${userInfo.access_token}`
-        };
+          const headers = {
+            Authorization: `Bearer ${userInfo.access_token}`
+          };
           // Make an API call to your server to verify authentication
 
-          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`,{headers});
+          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
           console.log("user is authenticated", t);
           setIsAuthenticated(true); // User is authenticated
         } catch (error) {
