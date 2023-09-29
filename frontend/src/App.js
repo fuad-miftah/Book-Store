@@ -34,11 +34,12 @@ function App() {
         try {
           console.log("access", userInfo.access_token);
           const headers = {
-            Authorization: `Bearer ${userInfo.access_token}`
+            "Content-Type": "application/json",
+
           };
           // Make an API call to your server to verify authentication
 
-          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
+          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`, { headers });
           console.log("user is authenticated", t);
           setIsAuthenticated(true); // User is authenticated
         } catch (error) {
