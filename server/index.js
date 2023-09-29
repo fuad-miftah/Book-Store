@@ -18,7 +18,7 @@ connectToDatabase();
 
 app.use(
   cors({
-    origin: '*',
+    origin: true,
     credentials: true,
   })
 );
