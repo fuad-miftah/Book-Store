@@ -16,13 +16,15 @@ const port = process.env.PORT || 8000
 
 connectToDatabase();
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
+
 app.use(cookieParser())
 app.use(express.json());
 

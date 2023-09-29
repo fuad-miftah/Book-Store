@@ -19,10 +19,12 @@ import Dashboard from "./pages/Dashbord";
 import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
+import axios from "axios";
 import { routedb } from "./constants";
 
 
 function App() {
+  axios.defaults.withCredentials = true;
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -34,13 +36,22 @@ function App() {
         try {
           console.log("access", userInfo.access_token);
           console.log(userInfo.details._id);
-          const headers = {
-            "Content-Type": "application/json",
+          // const headers = {
+          //   "Content-Type": "application/json",
 
-          };
+          // };
+          const headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+        }
           // Make an API call to your server to verify authentication
 
-          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`, { headers });
+          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`,{
+            withCredentials: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*', 
+                'Content-Type': 'application/json'
+            }});
           console.log("user is authenticated", t);
           setIsAuthenticated(true); // User is authenticated
         } catch (error) {
