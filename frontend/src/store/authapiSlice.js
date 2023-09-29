@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { routedb } from "../constants";
+import axiosInstance from "../utils/axiosInstance";
 
 const USERS_URL = `${routedb}/auth`;
 
@@ -14,7 +15,7 @@ const initialState = {
 // Create an async thunk for user login
 export const loginAsync = createAsyncThunk("user/login", async (userData) => {
     try {
-        const response = await axios.post(`${USERS_URL}/login`, userData);
+        const response = await axiosInstance.post(`${USERS_URL}/login`, userData);
         const { access_token } = response.data.data;
         document.cookie = `access_token=${access_token}; path=/`;
         return response.data.data;
@@ -26,7 +27,7 @@ export const loginAsync = createAsyncThunk("user/login", async (userData) => {
 // Create an async thunk for user registration
 export const registerAsync = createAsyncThunk("user/register", async (userData) => {
     try {
-        const response = await axios.post(`${USERS_URL}/register`, userData);
+        const response = await axiosInstance.post(`${USERS_URL}/register`, userData);
         return response.data;
     } catch (error) {
         throw error.response.data;
