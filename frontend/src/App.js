@@ -33,6 +33,7 @@ function App() {
       const verifyUserAuthentication = async () => {
         try {
           console.log("access", userInfo.access_token);
+          console.log(userInfo.details._id);
           const headers = {
             "Content-Type": "application/json",
 
