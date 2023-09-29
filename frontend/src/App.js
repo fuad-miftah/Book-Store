@@ -19,6 +19,7 @@ import Dashboard from "./pages/Dashbord";
 import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
+import { routedb } from "./constants";
 
 
 function App() {
@@ -31,13 +32,18 @@ function App() {
     useEffect(() => {
       const verifyUserAuthentication = async () => {
         try {
+        const headers = {
+          Authorization: `Bearer ${userInfo.access_token}`
+        };
           // Make an API call to your server to verify authentication
-          await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
-          console.log("user is authenticated");
+
+          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`,{headers});
+          console.log("user is authenticated", t);
           setIsAuthenticated(true); // User is authenticated
         } catch (error) {
           // Handle authentication errors (e.g., token validation failed)
           console.log("user is not authenticated");
+          console.log(error);
           setIsAuthenticated(false); // User is not authenticated
         }
       };
@@ -57,7 +63,7 @@ function App() {
     }
   };
 
-
+  console.table(userInfo);
   const dispatch = useDispatch();
   console.log("dispatched1");
   useEffect(() => {
@@ -86,7 +92,7 @@ function App() {
           <Route path="wishlist" element={<Whishlist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />
-          <Route  path="/checkout" element={<Checkout/>}/>
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={
             <ProtectedRoute>

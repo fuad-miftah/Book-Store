@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { routedb } from "../constants";
 
-const USERS_URL = "http://localhost:5555/api/auth";
+const USERS_URL = `${routedb}/auth`;
 
 // Define an initial state for the user slice
 const initialState = {

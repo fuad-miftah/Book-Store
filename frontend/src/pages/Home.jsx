@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   if (status === StatusCode.LOADING) {
-    return <p>Loading...</p>
+    return <p className='h-full flex justify-center items-center'>Loading...</p>
   }
 
   if (status === StatusCode.ERROR) {
