@@ -32,6 +32,7 @@ function App() {
     useEffect(() => {
       const verifyUserAuthentication = async () => {
         try {
+          console.log("access", userInfo.access_token);
           const headers = {
             Authorization: `Bearer ${userInfo.access_token}`
           };
@@ -64,6 +65,7 @@ function App() {
   };
 
   console.table(userInfo);
+  console.log("access", userInfo);
   const dispatch = useDispatch();
   console.log("dispatched1");
   useEffect(() => {
