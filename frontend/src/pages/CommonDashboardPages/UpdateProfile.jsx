@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import image from "../../assets/profile.png"
+import { routedb } from "../../constants";
 
 export default function UpdateProfile() {
     const axiosInstance = axios.create({
@@ -23,7 +25,7 @@ export default function UpdateProfile() {
         const fetchUserData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
+                const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
                 const user = response.data.data;
 
                 setUserData({
@@ -58,7 +60,7 @@ export default function UpdateProfile() {
         e.preventDefault();
         try {
             console.log("User data:", userData);
-            const response = await axiosInstance.put(`http://localhost:5555/api/user/${userInfo.details._id}`, userData);
+            const response = await axiosInstance.put(`${routedb}/user/${userInfo.details._id}`, userData);
             console.log("Profile updated successfully:", response.data);
         } catch (error) {
             console.error("Error updating profile:", error);
@@ -66,85 +68,90 @@ export default function UpdateProfile() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen">
-            <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <form className="w-72" onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">First Name:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="text"
-                            name="firstName"
-                            value={userData.firstName}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Last Name:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="text"
-                            name="lastName"
-                            value={userData.lastName}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Username:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="text"
-                            name="username"
-                            value={userData.username}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Email:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="email"
-                            name="email"
-                            value={userData.email}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Profile Image URL:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="text"
-                            name="img"
-                            value={userData.img}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Address:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="text"
-                            name="address"
-                            value={userData.address}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-lg font-medium">Phone:</label>
-                        <input
-                            className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
-                            type="tel"
-                            name="phone"
-                            value={userData.phone}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <button className="bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg w-full" type="submit">Update Profile</button>
-                </form>
-            )}
+        <div className="rounded-2xl  grid grid-cols-1 xl:grid-cols-2 font-serif gap-5 py-5 px-10 w-full shadow-2xl shadow-black">
+            <img src={image} alt="images of the books" className="h-full" />
+            <div>
+                <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <form className="w-72" onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">First Name:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="text"
+                                name="firstName"
+                                value={userData.firstName}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Last Name:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="text"
+                                name="lastName"
+                                value={userData.lastName}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Username:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="text"
+                                name="username"
+                                value={userData.username}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Email:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="email"
+                                name="email"
+                                value={userData.email}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Profile Image URL:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="text"
+                                name="img"
+                                value={userData.img}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Address:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="text"
+                                name="address"
+                                value={userData.address}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="block text-lg font-medium">Phone:</label>
+                            <input
+                                className="border rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 w-full"
+                                type="tel"
+                                name="phone"
+                                value={userData.phone}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <button className="bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg w-full" type="submit">Update Profile</button>
+                    </form>
+                )}
+            </div>
         </div>
     );
 }
+
+

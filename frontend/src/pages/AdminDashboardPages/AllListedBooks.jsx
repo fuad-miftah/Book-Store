@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { routedb } from "../../constants";
 
 export default function AllListedBooks() {
     const axiosInstance = axios.create({
@@ -16,7 +17,7 @@ export default function AllListedBooks() {
     const removeFromListedBooks = async (bookId) => {
         try {
             const response = await axiosInstance.delete(
-                `http://localhost:5555/api/book/${userInfo.details._id}/${bookId}`
+                `${routedb}/book/${userInfo.details._id}/${bookId}`
             );
             setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId));
             console.log("Book deleted successfully:", response);
