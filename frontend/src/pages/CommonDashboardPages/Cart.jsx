@@ -26,7 +26,7 @@ export default function Cart() {
                 <ul className='grid grid-cols-1 md:grid-cols-2 gap-10'>
                     {cart.map((item) => (
 
-                        <div key={item.bookId} className=" mx-10 grid-cols-2 grid gap-5 bg-white rounded-2xl">
+                        <div key={item.bookId} className="shadow-lg shadow-gray-600 mx-10 grid-cols-2 grid gap-5 bg-white rounded-2xl">
                             <div className='m-3 md:m-8'>
                                 <img className="rounded-t-lg w-[192px] h-[280px]" src={item.coverImg} alt={item.title} />
                             </div>
