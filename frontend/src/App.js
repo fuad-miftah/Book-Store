@@ -40,21 +40,16 @@ function App() {
           //   "Content-Type": "application/json",
 
           // };
-          const headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-          // Make an API call to your server to verify authentication
+          if (userInfo && userInfo.access_token) {
 
-          const t = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`,{
-            withCredentials: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*', 
-                'Content-Type': 'application/json'
-            }});
-          console.log("user is authenticated", t);
-          setIsAuthenticated(true); // User is authenticated
-        } catch (error) {
+            const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
+    
+            console.log('user is authenticated', response);
+            setIsAuthenticated(true); // User is authenticated
+          } else {
+            setIsAuthenticated(false); // User is not authenticated
+          }
+        }catch (error) {
           // Handle authentication errors (e.g., token validation failed)
           console.log("user is not authenticated");
           console.log(error);
