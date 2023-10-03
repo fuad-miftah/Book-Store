@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { routedb } from "../../constants";
 
 export default function AllUserss() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
+
     const { userInfo } = useSelector((state) => state.auth);
     const userId = encodeURIComponent(userInfo.details._id);
     const [users, setUsers] = useState([]);
@@ -19,9 +17,8 @@ export default function AllUserss() {
         const fetchAllUsers = async () => {
             try {
                 setIsLoading(true);
-                const response = await axiosInstance.get(
-                    `${routedb}/user`
-                );
+
+                const response = await axiosInstance.get(`${routedb}/user`);
                 console.log("response", response);
                 // Update the books state with the fetched data
                 console.log("Users:", response.data);

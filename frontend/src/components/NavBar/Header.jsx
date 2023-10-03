@@ -2,13 +2,14 @@ import React from "react";
 import { useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
 
 
 const Header = () => {
 
   const [toggleMenu, setToggleMenu] = useState(false);
-
+  const { userInfo } = useSelector((state) => state.auth);
 
 
   return (
@@ -70,9 +71,10 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <NavbarItem href="/login" icon={user} text="SignIn" />
+        {userInfo ? <NavbarItem href="/Dashboard" icon={user} text="Dashboard" /> :<NavbarItem href="/login" icon={user} text="SignIn" />}
         <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
         <NavbarItem href="/cart" icon={cart} text="Cart" />
+        {userInfo && <NavbarItem href="/logout" icon={user} text="Logout" />}
 
         <div
           className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full left-0 "
