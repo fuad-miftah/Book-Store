@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import image from "../../assets/profile.png"
 import { routedb } from "../../constants";
 
 export default function UpdateProfile() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
+
     const { userInfo } = useSelector((state) => state.auth);
     const [isLoading, setIsLoading] = useState(true);
 

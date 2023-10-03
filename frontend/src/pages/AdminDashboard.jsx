@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 import axiosInstance from "../utils/axiosInstance";
+import { routedb } from "../constants";
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
         const verifyUserAuthentication = async () => {
             try {
                 // Make an API call to your server to verify authentication
-                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
                 if (response.data.data.role !== "Admin") {
                     navigate("/");
                 }

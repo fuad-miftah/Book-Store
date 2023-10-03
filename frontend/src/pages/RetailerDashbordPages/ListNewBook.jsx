@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import { routedb } from "../../constants";
 
 export default function ListNewBook() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
+
     const { userInfo } = useSelector((state) => state.auth);
 
     const [formData, setFormData] = useState({

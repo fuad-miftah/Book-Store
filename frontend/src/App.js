@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StatusCode from "./utils/StatusCode";
 import Siginup from "./pages/Siginup";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Cart from "./pages/CommonDashboardPages/Cart";
 import Whishlist from "./pages/CommonDashboardPages/Wishlist";
 import ClientDashboard from "./pages/ClientDashboard";
@@ -101,6 +102,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="wishlist" element={<Whishlist />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Siginup />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error />} />
