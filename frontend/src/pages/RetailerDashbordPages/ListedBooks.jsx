@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import axios from "axios";
+import { useSelector } from 'react-redux';
+import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { deleteBookByRetailerId } from "../../store/bookSlice";
+import { routedb } from "../../constants";
 
 export default function ListedBooks() {
-    const dispatch = useDispatch();
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
     const { userInfo } = useSelector((state) => state.auth);
     const userId = encodeURIComponent(userInfo.details._id);
     const [books, setBooks] = useState([]);
@@ -20,7 +17,7 @@ export default function ListedBooks() {
             try {
                 setIsLoading(true);
                 const response = await axiosInstance.get(
-                    `http://localhost:5555/api/book/retailer/${userInfo.details._id}`
+                    `${routedb}/book/retailer/${userInfo.details._id}`
                 );
 
                 // Update the books state with the fetched data
@@ -40,7 +37,7 @@ export default function ListedBooks() {
     const removeFromListedBooks = async (bookId) => {
         try {
             const response = await axiosInstance.delete(
-                `http://localhost:5555/api/book/${userInfo.details._id}/${bookId}`
+                `${routedb}/book/${userInfo.details._id}/${bookId}`
             );
             setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId));
             console.log("Book deleted successfully:", response);

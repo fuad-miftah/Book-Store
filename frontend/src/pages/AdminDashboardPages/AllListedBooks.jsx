@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
+import { routedb } from "../../constants";
 
 export default function AllListedBooks() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
     const { userInfo } = useSelector((state) => state.auth);
 
     const { data } = useSelector(state => state.books);
@@ -16,8 +14,9 @@ export default function AllListedBooks() {
     const removeFromListedBooks = async (bookId) => {
         try {
             const response = await axiosInstance.delete(
-                `http://localhost:5555/api/book/${userInfo.details._id}/${bookId}`
+                `${routedb}/book/${userInfo.details._id}/${bookId}`
             );
+            
             setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId));
             console.log("Book deleted successfully:", response);
             toast.success("Deleted successfully");

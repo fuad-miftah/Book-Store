@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import axiosInstance from "../utils/axiosInstance";
 import { useSelector } from "react-redux";
+import { routedb } from "../constants";
 
 export default function RetailerDashboard() {
     const { userInfo } = useSelector((state) => state.auth);
@@ -22,7 +23,7 @@ export default function RetailerDashboard() {
         const verifyUserAuthentication = async () => {
             try {
                 // Make an API call to your server to verify authentication
-                const response = await axiosInstance.get(`/user/${userInfo.details._id}`);
+                const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
                 if (response.data.data.role !== "Retailer") {
                     navigate("/");
                 }

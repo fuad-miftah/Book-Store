@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import image from "../../assets/book2.png"
+import { routedb } from "../../constants";
 
-export default function ListNewBook() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
+ function ListNewBook() {
+
     const { userInfo } = useSelector((state) => state.auth);
 
     const [formData, setFormData] = useState({
@@ -37,7 +36,7 @@ export default function ListNewBook() {
 
         try {
             // Send a POST request to your backend to create a new book
-            const response = await axiosInstance.post(`http://localhost:5555/api/book/${userInfo.details._id}`, formData);
+            const response = await axiosInstance.post(`${routedb}/book/${userInfo.details._id}`, formData);
             console.log("Book created successfully:", response.data.data);
 
             // Clear the form after successful submission
@@ -192,3 +191,6 @@ export default function ListNewBook() {
         </div>
     );
 }
+
+
+export default ListNewBook;
