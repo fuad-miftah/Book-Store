@@ -19,6 +19,7 @@ import Dashboard from "./pages/Dashbord";
 import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
+import SearchPage from "./pages/SearchPage";
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Siginup />} />
           <Route  path="/checkout" element={<Checkout/>}/>
+          <Route path="/search" element={<SearchPage/>}/>
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={
             <ProtectedRoute>
