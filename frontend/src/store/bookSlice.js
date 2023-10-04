@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import StatusCode from "../utils/StatusCode";
 import axios from "axios";
 import axiosInstance from "../utils/axiosInstance";
+import { routedb } from "../constants";
 
 const initialState = {
     data: [],
@@ -37,7 +38,7 @@ export default bookSlice.reducer;
 
 export const getBooks = createAsyncThunk("products/get", async () => {
     console.log("entered");
-    const res = await axios.get('http://localhost:5555/api/book');
+    const res = await axios.get(`${routedb}/book`);
     console.log(res.data.data);
     return res.data.data;
 })

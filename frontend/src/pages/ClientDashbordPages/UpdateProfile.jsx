@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { routedb } from "../../constants";
 
 export default function UpdateProfile() {
-    const axiosInstance = axios.create({
-        withCredentials: true, // Include cookies in the request
-    });
+
     const { userInfo } = useSelector((state) => state.auth);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +23,7 @@ export default function UpdateProfile() {
         const fetchUserData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
+                const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
                 const user = response.data.data;
 
                 setUserData({
@@ -58,7 +57,7 @@ export default function UpdateProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosInstance.put(`http://localhost:5555/api/user/${userInfo.details._id}`, userData);
+            const response = await axiosInstance.put(`${routedb}/user/${userInfo.details._id}`, userData);
             toast.success("Profile updated successfully!");
             console.log("Profile updated successfully:", response.data);
         } catch (error) {

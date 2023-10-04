@@ -5,6 +5,7 @@ import { Link,useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logo, menu, cart, user, wishlist, searchIcon, selectCartTotal } from "./Index";
 
+import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
 
 const Header = () => {
   const location = useLocation(); 
@@ -12,15 +13,16 @@ const Header = () => {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
-  const isLoggedIn = useSelector(state => state.auth);
 
   const total = useSelector(selectCartTotal);
 
-  const text = isLoggedIn ? 'Dashboard' : 'SignIn';
-  const href = isLoggedIn ? '/dashboard' : '/login';
+  const text = userInfo ? 'Dashboard' : 'SignIn';
+  const href = userInfo ? '/dashboard' : '/login';
 
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  
+  const { userInfo } = useSelector((state) => state.auth);
 
   const handleItemClick = (page) => {
     setActivePage(page);
@@ -78,8 +80,7 @@ const Header = () => {
             <div className="flex-reverse flex-grow items-center md:items-center md:w-auto relative">
               <input
                 type="text"
-                name="query"
-                placeholder="Search Books..."
+                name="query"                placeholder="Search Books..."
                 className="lg:w-[500px] h-[48px] md:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-700 focus:border-green-700 pl-8 pr-0"
                 value={searchTerm}
                 onChange={(e)=> setSearchTerm(e.target.value)}
@@ -111,12 +112,19 @@ const Header = () => {
               />
             </button>
           </div>
-       
+
          </form>
-          </div>
-        <NavbarItem href={href} icon={user} text={text} />
+//           </div>
+//         <NavbarItem href={href} icon={user} text={text} />
+//         <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
+//         <NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} />
+
+//         </div>
+        {userInfo ? <NavbarItem href="/Dashboard" icon={user} text="Dashboard" /> :<NavbarItem href="/login" icon={user} text="SignIn" />}
         <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
-        <NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} />
+<NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} />
+        {userInfo && <NavbarItem href="/logout" icon={user} text="Logout" />}
+
 
         <div
           className={`fixed z-40 w-full  bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-12  origin-top duration-700  ${!toggleMenu ? "h-0" : "h-50px top-[120px] w-full left-0 absolute"

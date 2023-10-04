@@ -18,6 +18,7 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyUser = (req, res, next) => {
     verifyToken(req, res, () => {
+        console.log(req.user)
         if (req.user.id === req.params.id || req.user.role == "Admin") {
             next();
         } else {
@@ -37,15 +38,20 @@ export const verifyClient = (req, res, next) => {
 };
 
 export const verifyRetailer = (req, res, next) => {
-
-    verifyToken(req, res, () => {
-        if ((req.user.id === req.params.id && req.user.role == "Retailer") || req.user.role == "Admin") {
-            console.log("verifyRetailer: verified");
-            next();
-        } else {
-            return next(createError(403, "You are not authorized!"));
-        }
-    });
+    console.log(req.user.id, req.params.id, req.params, req.user);
+    try {
+        verifyToken(req, res, () => {
+            if ((req.user.id === req.params.id && req.user.role == "Retailer") || req.user.role == "Admin") {
+                console.log("verifyRetailer: verified");
+                next();
+            } else {
+                return next(createError(403, "You are not authorized!"));
+            }
+        });
+    } catch (err) {
+        next(createError(403, "unkown id"))
+        console.log(err);
+    }
 };
 
 export const verifyAdmin = (req, res, next) => {

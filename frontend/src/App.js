@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StatusCode from "./utils/StatusCode";
 import Siginup from "./pages/Siginup";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Cart from "./pages/CommonDashboardPages/Cart";
 import Whishlist from "./pages/CommonDashboardPages/Wishlist";
 import ClientDashboard from "./pages/ClientDashboard";
@@ -19,10 +20,12 @@ import Dashboard from "./pages/Dashbord";
 import AdminDashboard from "./pages/AdminDashboard";
 import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
-import SearchPage from "./pages/SearchPage";
+import axios from "axios";
+import { routedb } from "./constants";
 
 
 function App() {
+  axios.defaults.withCredentials = true;
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -32,13 +35,25 @@ function App() {
     useEffect(() => {
       const verifyUserAuthentication = async () => {
         try {
-          // Make an API call to your server to verify authentication
-          await axiosInstance.get(`http://localhost:5555/api/user/${userInfo.details._id}`);
-          console.log("user is authenticated");
-          setIsAuthenticated(true); // User is authenticated
-        } catch (error) {
+          console.log("access", userInfo.access_token);
+          console.log(userInfo.details._id);
+          // const headers = {
+          //   "Content-Type": "application/json",
+
+          // };
+          if (userInfo && userInfo.access_token) {
+
+            const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
+    
+            console.log('user is authenticated', response);
+            setIsAuthenticated(true); // User is authenticated
+          } else {
+            setIsAuthenticated(false); // User is not authenticated
+          }
+        }catch (error) {
           // Handle authentication errors (e.g., token validation failed)
           console.log("user is not authenticated");
+          console.log(error);
           setIsAuthenticated(false); // User is not authenticated
         }
       };
@@ -58,7 +73,8 @@ function App() {
     }
   };
 
-
+  console.table(userInfo);
+  console.log("access", userInfo);
   const dispatch = useDispatch();
   console.log("dispatched1");
   useEffect(() => {
@@ -86,9 +102,10 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="wishlist" element={<Whishlist />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Siginup />} />
           <Route  path="/checkout" element={<Checkout/>}/>
-          <Route path="/search" element={<SearchPage/>}/>
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={
             <ProtectedRoute>
