@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
+import image from "../../assets/book2.png"
 import { routedb } from "../../constants";
 
-export default function ListNewBook() {
+ function ListNewBook() {
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -63,11 +64,13 @@ export default function ListNewBook() {
     };
 
     return (
-        <div>
-            <h2>Add New Book</h2>
+        <div className="rounded-2xl  grid grid-cols-1 xl:grid-cols-2 font-serif gap-5 py-5 px-10 w-full shadow-2xl shadow-black">
+           <img src={image} alt="images of the books" className="h-full"/>
+           <div className="xs:px-12 px-3 sm:px-32 md:px-20 lg:px-32 xl:px-5">
+           <h2 className="font-bold text-center text-4xl pb-2">Add New Book</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                <div className="flex justify-between items-center py-2">
+                    <label className="block text-gray-700 text-sm font-bold mb-2 pr-10">Title:</label>
                     <input
                         className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="text"
@@ -78,7 +81,7 @@ export default function ListNewBook() {
                     />
                     {errors.title && <span className="error">{errors.title}</span>}
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Author:</label>
                     <input
                         className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
@@ -91,7 +94,7 @@ export default function ListNewBook() {
                     {errors.author && <span className="error">{errors.author}</span>}
 
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
                     <textarea
                         className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
@@ -100,7 +103,7 @@ export default function ListNewBook() {
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Genre:</label>
                     <input
                         className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
@@ -122,10 +125,10 @@ export default function ListNewBook() {
           />
           {errors.retailerId && <span className="error">{errors.retailerId}</span>}
         </div> */}
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Price:</label>
                     <input
-                        className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
+                        className="border border-gray-300 font-mono rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="number"
                         name="price"
                         required
@@ -134,10 +137,10 @@ export default function ListNewBook() {
                     />
                     {errors.price && <span className="error">{errors.price}</span>}
                 </div>
-                <div>
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Featured:</label>
+                <div className="flex py-2">
+                    <label className="block text-gray-700 text-sm font-bold mb-2 pr-16">Featured:</label>
                     <input
-                        className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
+                        className="border border-gray-300 h-4 w-4 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="checkbox"
                         name="featured"
                         required
@@ -145,10 +148,10 @@ export default function ListNewBook() {
                         onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                     />
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Quantity:</label>
                     <input
-                        className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
+                        className="border font-mono border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="number"
                         name="quantity"
                         required
@@ -157,7 +160,7 @@ export default function ListNewBook() {
                     />
                     {errors.quantity && <span className="error">{errors.quantity}</span>}
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Cover Image URL:</label>
                     <input
                         className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
@@ -169,18 +172,25 @@ export default function ListNewBook() {
                     />
                     {errors.coverImg && <span className="error">{errors.coverImg}</span>}
                 </div>
-                <div>
+                <div className="flex justify-between items-center py-2">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Number of Pages:</label>
                     <input
-                        className="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
+                        className="border font-mono border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="number"
                         name="no_of_page"
                         value={formData.no_of_page}
                         onChange={handleChange}
                     />
                 </div>
-                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" type="submit">Add Book</button>
+                <button className="ml-32 bg-green-500 flex justify-center items-center text-center mt-6 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg" type="submit">Add Book</button>
             </form>
+           </div>
+           <div>
+           
+           </div>
         </div>
     );
 }
+
+
+export default ListNewBook;
