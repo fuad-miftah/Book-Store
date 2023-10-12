@@ -104,6 +104,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Siginup />} />
+          <Route  path="/checkout" element={<Checkout/>}/>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={

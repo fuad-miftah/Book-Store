@@ -16,7 +16,6 @@ export default function Checkout() {
   const newPaths = paths.filter((path) => path !== "");
 
 
-  newPaths[1] = "Gala Apples";
   newPaths.unshift("Home");
   const newPath = newPaths.join(" > ");
 

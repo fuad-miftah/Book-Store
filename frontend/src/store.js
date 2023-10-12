@@ -9,6 +9,7 @@ import filterSlice from "./store/filterSlice";
 import paginationReducer from "./store/paginationSlice";
 import checkoutReducer from "./store/checkoutSlice";
 import orerReducer from "./store/orderSlice";
+import searchReducer from "./store/filterSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     checkout: checkoutReducer,
     pagination: paginationReducer,
     order : orerReducer,
+    search: searchReducer,
 
   },
   devTools: true,
