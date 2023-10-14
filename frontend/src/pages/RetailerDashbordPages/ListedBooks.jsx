@@ -4,6 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { deleteBookByRetailerId } from "../../store/bookSlice";
 import { routedb } from "../../constants";
+import { user } from "../../components/NavBar/Index";
 
 export default function ListedBooks() {
     const { userInfo } = useSelector((state) => state.auth);
@@ -19,6 +20,7 @@ export default function ListedBooks() {
                 const response = await axiosInstance.get(
                     `${routedb}/book/retailer/${userInfo.details._id}`
                 );
+                //const response = await axiosInstance.get(`http://localhost:5555/api/book/retailer/${userInfo.details._id}`)
 
                 // Update the books state with the fetched data
                 console.log("Books listed by the retailer:", response.data);
@@ -36,6 +38,7 @@ export default function ListedBooks() {
 
     const removeFromListedBooks = async (bookId) => {
         try {
+            console.log(userInfo.details._id, bookId);
             const response = await axiosInstance.delete(
                 `${routedb}/book/${userInfo.details._id}/${bookId}`
             );
