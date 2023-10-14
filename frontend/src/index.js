@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import { ChakraProvider } from '@chakra-ui/react'
 import {NextUIProvider} from '@nextui-org/react';
 
 import { Store, store } from "./store";
@@ -10,12 +11,13 @@ import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+  <ChakraProvider>
   <NextUIProvider>
      <Provider store={store}>
       <App />
     </Provider>
   </NextUIProvider>
-   
+   </ChakraProvider>
   </React.StrictMode>
 );
 

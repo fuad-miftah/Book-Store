@@ -37,10 +37,10 @@ export default function Cart() {
                                 <p className="text-xl">Total: ${item.totalPrice}</p>
                                 <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={() => removeFromCart(item.bookId)}>Remove</button>
                             </div>
-                        </div>
+                        </div>                     
                     ))}
                 </ul>
             )}
         </div>
-    );
+    );  
 }
