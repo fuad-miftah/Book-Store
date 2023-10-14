@@ -13,7 +13,7 @@ const Header = () => {
 
 
   return (
-    <nav className="flex flex-row px-4 justify-start items-center md:w-auto md:px-8 bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="flex flex-row px-4 justify-start items-center md:w-auto md:px-8 bg-white shadow-lg shadow-gray-600 border-gray-200 dark:bg-gray-900">
       <div className="w-full flex md:relative lg:flex-row p-4 items-center justify-start lg:justify-between gap-8">
         <div className="flex left-0 md:w-200 md:h-50 items-center justify-start ">
           <a href="/"
