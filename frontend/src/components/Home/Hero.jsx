@@ -1,6 +1,7 @@
 import GreenButton from "../Common/GreenButton"
 import { useNavigate } from "react-router-dom";
 import {Image} from "@nextui-org/react";
+import bookshop from './books.png';
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Hero() {
       isZoomed
       width={500}
       alt="Hero"
-      src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1885&q=80"
+      src={bookshop}
       className="hidden lg:block w-screen rounded-3xl shadow-xl w-full h-[350px] md:h-[560px]"
     />
       {/* <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1885&q=80"
