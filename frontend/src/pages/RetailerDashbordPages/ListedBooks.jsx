@@ -4,6 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { deleteBookByRetailerId } from "../../store/bookSlice";
 import { routedb } from "../../constants";
+import Loading from "../../components/Adds/Loading";
 
 export default function ListedBooks() {
     const { userInfo } = useSelector((state) => state.auth);
@@ -52,7 +53,7 @@ export default function ListedBooks() {
         }
     };
 
-    if (isLoading) return (<p>Loading...</p>);
+    if (isLoading) return (<Loading />);
 
     return (
         <div>

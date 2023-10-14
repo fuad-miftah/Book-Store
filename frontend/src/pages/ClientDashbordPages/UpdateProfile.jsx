@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import image from "../../assets/profile.png"
 import { routedb } from "../../constants";
+import Loading from "../../components/Adds/Loading";
 
  function UpdateProfile() {
 
@@ -73,7 +74,7 @@ import { routedb } from "../../constants";
            <div>
            <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
             {isLoading ? (
-                <p>Loading...</p>
+                <Loading />
             ) : (
                 <form className="w-72" onSubmit={handleSubmit}>
                     <div className="mb-3">

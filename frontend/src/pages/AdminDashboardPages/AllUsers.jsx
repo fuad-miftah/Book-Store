@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { routedb } from "../../constants";
+import Loading from "../../components/Adds/Loading";
 
 export default function AllUserss() {
 
@@ -51,7 +52,7 @@ export default function AllUserss() {
         }
     };
 
-    if (isLoading) return (<p>Loading...</p>);
+    if (isLoading) return (<Loading />);
 
     return (
         <div>

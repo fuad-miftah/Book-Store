@@ -22,6 +22,7 @@ import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
 import axios from "axios";
 import { routedb } from "./constants";
+import Loading from "./components/Adds/Loading";
 
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
 
     if (isAuthenticated === null) {
       // Waiting for authentication check to complete
-      return <p>Loading...</p>;
+      return <Loading />
     } else if (!userInfo || isAuthenticated === false) {
       // User is not authenticated
       return <Navigate to="/login" />;
@@ -84,7 +85,7 @@ function App() {
 
 
   if (status === StatusCode.LOADING) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (status === StatusCode.ERROR) {

@@ -6,6 +6,7 @@ import CustomCarosel from '../components/Home/CustomCarosel';
 import { useSelector } from "react-redux";
 import StatusCode from "../utils/StatusCode";
 import FlexCard from '../components/Home/FlexCard';
+import Loading from '../components/Adds/Loading';
 
 export default function Home() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -28,7 +29,7 @@ export default function Home() {
   }, []);
 
   if (status === StatusCode.LOADING) {
-    return <p className='h-full flex justify-center items-center'>Loading...</p>
+    return <Loading />
   }
 
   if (status === StatusCode.ERROR) {

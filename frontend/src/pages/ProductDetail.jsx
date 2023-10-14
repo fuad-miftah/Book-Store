@@ -6,6 +6,7 @@ import CustomCarosel from '../components/Home/CustomCarosel';
 import UperDiv from "../components/ProductDetail/UperDiv";
 import StatusCode from "../utils/StatusCode";
 import FlexCard from '../components/Home/FlexCard';
+import Loading from '../components/Adds/Loading';
 
 export default function ProductDetail() {
   const { data, featuredData, bestSellerData, status } = useSelector(state => state.books);
@@ -38,7 +39,7 @@ export default function ProductDetail() {
   }
 
   if (status === StatusCode.LOADING) {
-    return <p>Loading...</p>
+    return <Loading />
   }
 
   if (status === StatusCode.ERROR) {

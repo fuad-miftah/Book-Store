@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Filter from "../components/Product/Filter";
 import ProductCard from "../components/Home/ProductCard";
+import Loading from "../components/Adds/Loading";
 
 export default function Products() {
   const location = useLocation();
@@ -62,7 +63,7 @@ export default function Products() {
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </div>
   );
