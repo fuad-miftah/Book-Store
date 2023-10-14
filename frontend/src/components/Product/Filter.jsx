@@ -63,7 +63,7 @@ export default function Filter({ applyFilters }) {
     };
 
     return (
-    <div className="flex flex-col w-[450px] border rounded-lg ml-10 mr-6 p-6">
+    <div className="flex flex-col w-[450px] border rounded-lg  ml-20 mr-6 p-6">
      <div className="category-dropdown">
                 <div className="category-title cursor-pointer mb-4" onClick={togglePriceDropdown}>
                     <div className="flex flex-row items-center justify-between">

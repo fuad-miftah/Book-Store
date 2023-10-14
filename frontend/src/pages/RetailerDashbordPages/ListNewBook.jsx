@@ -143,7 +143,6 @@ import { routedb } from "../../constants";
                         className="border border-gray-300 h-4 w-4 rounded-lg py-2 px-3 focus:outline-none focus:border-green-500"
                         type="checkbox"
                         name="featured"
-                        required
                         checked={formData.featured}
                         onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                     />

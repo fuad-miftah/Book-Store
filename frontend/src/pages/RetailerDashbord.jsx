@@ -134,7 +134,7 @@ export default function RetailerDashboard() {
             }
             {
                 !isSmallScreen && (<div className="flex flex-row flex-wrap">
-                    <div className="w-1/4 bg-gray-800 h-screen text-white py-4">
+                    <div className="w-1/6 bg-gray-800 h-screen text-white py-4 border rounded-xl">
                         <div className="flex flex-col items-center">
                             <Link to="/" className="text-4xl font-bold text-green-500 mb-8">
                                 <HomeIcon className="h-12 w-12" />
@@ -183,7 +183,7 @@ export default function RetailerDashboard() {
                             </button>
                         </div>
                     </div>
-                    <div className="w-3/4 bg-gray-100 p-8">
+                    <div className="w-5/6 bg-gray-100 p-8">
                         <div className="flex">
                             {active === "Dashboard" && <Dashboard />}
                             {active === "ListNewBook" && <ListNewBook />}

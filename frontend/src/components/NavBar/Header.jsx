@@ -5,7 +5,6 @@ import { Link,useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logo, menu, cart, user, wishlist, searchIcon, selectCartTotal } from "./Index";
 
-import { logo, menu, cart, user, wishlist, searchIcon } from "./Index";
 
 const Header = () => {
   const location = useLocation(); 
@@ -13,6 +12,7 @@ const Header = () => {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const total = useSelector(selectCartTotal);
 
@@ -21,8 +21,7 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  
-  const { userInfo } = useSelector((state) => state.auth);
+
 
   const handleItemClick = (page) => {
     setActivePage(page);
@@ -114,12 +113,12 @@ const Header = () => {
           </div>
 
          </form>
-//           </div>
-//         <NavbarItem href={href} icon={user} text={text} />
+           </div>
+{/* //         <NavbarItem href={href} icon={user} text={text} />
 //         <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
-//         <NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} />
+//         <NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} /> */}
 
-//         </div>
+         </div>
         {userInfo ? <NavbarItem href="/Dashboard" icon={user} text="Dashboard" /> :<NavbarItem href="/login" icon={user} text="SignIn" />}
         <NavbarItem href="/wishlist" icon={wishlist} text="Wishlist" />
 <NavbarItem href="/cart" icon={cart} text={`$${total.toFixed(2)}`} />
@@ -178,7 +177,7 @@ const Header = () => {
         </div>  
       </div>
       </div>
-      </div>
+    
     </nav>
   );
 };
