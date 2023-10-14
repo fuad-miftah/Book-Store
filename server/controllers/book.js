@@ -116,7 +116,6 @@ export const getBooks = async (req, res, next) => {
 // Get all books listed by a retailer
 export const getRetailerBook = async (req, res, next) => {
     try {
-
         const retailer = await Retailer.findOne({ userId: req.params.id });
         const books = await Book.find({ retailerId: retailer._id });
         res.status(200).json(createSuccess("Retailer's books found.", books));

@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
 
     const access_token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT  // Use the JWT secret key from environment variables
+      process.env.JWT  // Use the JWT secret key from environment variables 
     );
 
     const { password, role, ...otherDetails } = user._doc;
