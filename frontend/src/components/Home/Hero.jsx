@@ -10,9 +10,9 @@ export default function Hero() {
     navigate("/product"); // Replace "/product" with your actual product page URL
   };
   return (
-    <div className="bg-white  w-screen h-[400px] lg:h-[624px] grid grid-cols-1 lg:grid-cols-2 justify-center items-center">
-      <div className="p-[12%]">
-        <h1 className="text-5xl text-gray-600 font-medium">Where your search<br />ends?</h1>
+    <div className="bg-slate-900  w-screen h-[400px] lg:h-[624px] grid grid-cols-1 lg:grid-cols-2 gap-10 justify-center items-center">
+      <div className="p-[12%] flex flex-col justify-center items-center">
+        <h1 className="text-5xl text-gray-100 font-medium text-center">Where your search<br />ends?</h1>
         <GreenButton title="Order Online" onClick={handleClick} className="py-8" />
       </div>
       <Image
