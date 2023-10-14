@@ -17,11 +17,10 @@ export default function ListedBooks() {
         const fetchRetailerBooks = async () => {
             try {
                 setIsLoading(true);
-                console.log(userInfo.details._id);
-                // const response = await axiosInstance.get(
-                //     `${routedb}/book/retailer/${userInfo.details._id}`
-                // );
-                const response = await axiosInstance.get(`http://localhost:5555/api/book/retailer/${userInfo.details._id}`)
+                const response = await axiosInstance.get(
+                    `${routedb}/book/retailer/${userInfo.details._id}`
+                );
+                //const response = await axiosInstance.get(`http://localhost:5555/api/book/retailer/${userInfo.details._id}`)
 
                 // Update the books state with the fetched data
                 console.log("Books listed by the retailer:", response.data);
