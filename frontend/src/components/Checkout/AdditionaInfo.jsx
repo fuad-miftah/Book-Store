@@ -32,10 +32,8 @@ const AdditionaInfo = () => {
                     class="block p-2.5 mt-[16px] w-full h-[220px] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 resize-none flex-shrink-0 stroke-[1px] focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Notes about your order"
                 ></textarea>
-            </div>{" "}
-       {/*  just to check the pagination ...should be add inside search and seacrh effect page */}
-            <Pagination/>
-
+            </div>
+           
         </div>
 
     )

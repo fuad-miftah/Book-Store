@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { deleteBookByRetailerId } from "../../store/bookSlice";
 import { routedb } from "../../constants";
 import Loading from "../../components/Adds/Loading";
+import { user } from "../../components/NavBar/Index";
 
 export default function ListedBooks() {
     const { userInfo } = useSelector((state) => state.auth);
@@ -20,6 +21,7 @@ export default function ListedBooks() {
                 const response = await axiosInstance.get(
                     `${routedb}/book/retailer/${userInfo.details._id}`
                 );
+                //const response = await axiosInstance.get(`http://localhost:5555/api/book/retailer/${userInfo.details._id}`)
 
                 // Update the books state with the fetched data
                 console.log("Books listed by the retailer:", response.data);
@@ -37,6 +39,7 @@ export default function ListedBooks() {
 
     const removeFromListedBooks = async (bookId) => {
         try {
+            console.log(userInfo.details._id, bookId);
             const response = await axiosInstance.delete(
                 `${routedb}/book/${userInfo.details._id}/${bookId}`
             );
@@ -53,7 +56,9 @@ export default function ListedBooks() {
         }
     };
 
-    if (isLoading) return (<Loading />);
+    if (isLoading) return (<div class="flex items-center justify-center h-screen">
+        <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
+    </div>);
 
     return (
         <div>

@@ -24,7 +24,7 @@ router.delete("/:id/:bookId", verifyRetailer, deleteBook);
 router.get("/:id", getBook);
 
 //GET retailer books using User Id
-router.get("/retailer/:id", verifyRetailer, getRetailerBook);
+router.get("/retailer/:id", verifyToken, verifyRetailer, getRetailerBook);
 
 //GET ALL
 router.get("/", getBooks);

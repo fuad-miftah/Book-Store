@@ -77,15 +77,20 @@ export default function UperDiv({ data }) {
     }
 
     return (
-        <div className="flex flex-row flex-wrap w-screen p-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="ml-[20px] mt-12">
+                <img
+                    className="rounded-t-lg w-[326px] md:w-[100%] h-[500px]"
+                    src={data.coverImg}
+                    alt={data.coverImg}
+                />
+            </div>
 
-            <img className="rounded-t-lg w-[40%] h-[500px]" src={data.coverImg} alt="" />
-
-            <div className="flex flex-col p-10 ">
+            <div className="flex flex-col p-10">
                 <div className="flex flex-wrap flex-col space-y-8">
-                    <h1 className="text-4xl font-medium w-[500px]">{data.title}</h1>
-                    <div className="h-[40px]">
-                        <div className="h-[40px] bg-green-100 inline-flex items-center justify-center mr-4">
+                    <h1 className="text-4xl font-medium w-full">{data.title}</h1>
+                    <div className="h-[40px] items-center justify-center">
+                        <div className="h-[40px] bg-red-200 inline-flex items-center justify-center mr-4">
                             <p className="inline">-15%</p>
                         </div>
                         <p className="h-[40px] inline-flex items-center line-through">{discount} birr</p>
@@ -94,9 +99,9 @@ export default function UperDiv({ data }) {
                 </div>
                 <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div>
-                    <div className="flex flex-row flex-wrap items-center">
-                        <button className="inline bg-gray-200 h-[40px] w-[40px] p-2" onClick={decreaseQuantity}><MinusIcon /></button>
+                    <div className="flex flex-row flex-wrap items-center justify-center space-x-4">
                         <p className="inline text-4xl m-4">{buyQuantity}</p>
+                        <button className="inline bg-gray-200 h-[40px] w-[40px] p-2" onClick={decreaseQuantity}><MinusIcon /></button>
                         <button className="inline bg-green-400 h-[40px] w-[40px] text-white p-2" onClick={increaseQuantity}><PlusIcon /></button>
                     </div>
 
@@ -108,6 +113,22 @@ export default function UperDiv({ data }) {
                         <button className="border border-gray-200 bg-gray-200 hover:bg-gray-700 text-green-500 w-full h-[40px]" onClick={() => addToWishlistHandler(data._id, data.price, ((data.price * buyQuantity) - discount), buyQuantity, data.coverImg, data.title)}>Save</button>
                     </div>
                 </div>
+            </div>
+            <div className="w-[380px] ml-4  items-center justify-center md:w-[80%] h-[400px] border border-black-100">
+          <div className="flex flex-col items-center justify-center">
+          <h2 className="m-4">  Description</h2>  
+          <div className="w-[380px] md:w-[80%] border-b border-black-200"/>
+          <p className="text-3x1 m-4">Author: {data.author}</p>
+          <div className="w-[380px] md:w-[80%] border-b border-black-200"/>
+          <p className="text-3x1 m-4">Featured</p>
+          <div className="w-[380px] md:w-[80%] border-b border-black-200"/>
+        
+          </div>
+          </div>
+            <div className="w-full ml-4 items-center justify-center md:w-[100%] h-[400px]">
+                {/* //change this by product dezcription  */}
+                <p>{data.productDescription}
+                  </p>
             </div>
         </div>
     )

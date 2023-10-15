@@ -54,7 +54,7 @@ export default function CustomCarosel({ data }) {
     }, [scrollLeft]);
 
     return (
-        <div className='relative flex items-center'>
+        <div className='relative flex items-center justify-center space-y-4'>
             <button
                 className={`absolute top-1/3 left-4 w-14 h-14 rounded-full 
         bg-green-700 hover:bg-green-500 text-white flex items-center ${!isScrollableLeft && 'hidden'}`}
@@ -65,15 +65,18 @@ export default function CustomCarosel({ data }) {
 
             <div
                 ref={sliderRef}
-                className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide m-10'
+                className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'
             >
                 {data.map((item) => (
-                    <div className='inline-block m-4 w-[80%] sm:w-[40%] md:w-[20%] lg:w-[15%]' key={item._id}>
+                    <div className='inline-block items-center justify-center h-[457px] w-3/4 md:w-[192.61px] lg:w-[15%] space-x-2 md:space-x-4 space-y-4 gap-4' 
+                      key={item._id}>
                         <ProductCard
                             id={item._id}
                             title={item.title}
                             price={item.price}
                             image={item.coverImg}
+                            author={item.author}
+                            desc={item.productDescription}
                         />
                     </div>
                 ))}
@@ -88,3 +91,4 @@ export default function CustomCarosel({ data }) {
         </div>
     );
 }
+

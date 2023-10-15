@@ -38,10 +38,11 @@ export const verifyClient = (req, res, next) => {
 };
 
 export const verifyRetailer = (req, res, next) => {
-    console.log(req.user.id, req.params.id, req.params, req.user);
+
     try {
         verifyToken(req, res, () => {
-            if ((req.user.id === req.params.id && req.user.role == "Retailer") || req.user.role == "Admin") {
+            console.log("authUser", req.user);
+            if ((req.user.role == "Retailer") || req.user.role == "Admin") {
                 console.log("verifyRetailer: verified");
                 next();
             } else {
