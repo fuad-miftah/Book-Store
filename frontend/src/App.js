@@ -22,6 +22,7 @@ import Checkout from "./pages/Checkout";
 import axiosInstance from "./utils/axiosInstance";
 import axios from "axios";
 import { routedb } from "./constants";
+import Loading from "./components/Adds/Loading";
 
 
 function App() {
@@ -63,9 +64,11 @@ function App() {
 
     if (isAuthenticated === null) {
       // Waiting for authentication check to complete
+
       return <div class="flex items-center justify-center h-screen">
         <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
       </div>;
+
     } else if (!userInfo || isAuthenticated === false) {
       // User is not authenticated
       return <Navigate to="/login" />;
@@ -86,9 +89,11 @@ function App() {
 
 
   if (status === StatusCode.LOADING) {
+
     return <div className="flex items-center justify-center h-screen">
       <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
     </div>;
+
   }
 
   if (status === StatusCode.ERROR) {

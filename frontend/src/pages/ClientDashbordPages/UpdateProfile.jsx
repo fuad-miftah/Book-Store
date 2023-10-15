@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import image from "../../assets/profile.png"
 import { routedb } from "../../constants";
+import Loading from "../../components/Adds/Loading";
 
  function UpdateProfile() {
 
@@ -73,6 +74,7 @@ import { routedb } from "../../constants";
            <div>
            <h2 className="text-3xl font-semibold mb-4">Update Profile</h2>
             {isLoading ? (
+
                 <div class="flex items-center justify-center h-screen">
                 <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
               </div>

@@ -3,6 +3,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import image from "../../assets/profile.png"
 import { routedb } from "../../constants";
+import Loading from "../../components/Adds/Loading";
 
  function UpdateProfile() {
 
