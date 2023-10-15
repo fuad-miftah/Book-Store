@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { setCredentials } from '../store/authSlice';
 import { loginAsync } from "../store/authapiSlice";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Login = () => {
   const {
@@ -14,8 +15,10 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const response = await dispatch(loginAsync(data)).unwrap();
       dispatch(setCredentials(response));
@@ -28,6 +31,8 @@ const Login = () => {
         toast.error("An error occurred while logging in");
         console.error("An error occurred while logging in:", err);
       }
+    } finally {
+      setIsLoading(false); // Set loading state back to false after login attempt
     }
   };
 
@@ -129,16 +134,22 @@ const Login = () => {
               </div>
             </div>
             <div className="self-stretch h-[104px] flex-col justify-start items-start gap-4 flex">
-              <div className="self-stretch rounded-lg justify-start items-start inline-flex">
-                <div className="grow shrink basis-0 h-11 px-[18px] py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex">
-                  <button
-                    type="submit"
-                    className="text-white text-base font-semibold leading-normal"
-                  >
-                    Sign in
-                  </button>
+              {isLoading ? ( // Conditionally render the spinner if loading is true
+                <div className="flex justify-center items-center">
+                  <div className="border-gray-300 h-10 w-10 animate-spin rounded-full border-8 border-t-blue-600" />
                 </div>
-              </div>
+              ) : (
+                <div className="self-stretch rounded-lg justify-start items-start inline-flex">
+                  <div className="grow shrink basis-0 h-11 px-[18px] py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex">
+                    <button
+                      type="submit"
+                      className="text-white text-base font-semibold leading-normal"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="self-stretch h-11 flex-col justify-center items-center gap-3 flex">
                 <div className="self-stretch px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-3 inline-flex">
                   <div className="w-6 h-6 relative" />

@@ -28,7 +28,9 @@ export default function Home() {
   }, []);
 
   if (status === StatusCode.LOADING) {
-    return <p className='h-full flex justify-center items-center'>Loading...</p>
+    return <div className="flex items-center justify-center h-screen">
+      <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
+    </div>
   }
 
   if (status === StatusCode.ERROR) {
