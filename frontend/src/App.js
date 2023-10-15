@@ -44,13 +44,13 @@ function App() {
           if (userInfo && userInfo.access_token) {
 
             const response = await axiosInstance.get(`${routedb}/user/${userInfo.details._id}`);
-    
+
             console.log('user is authenticated', response);
             setIsAuthenticated(true); // User is authenticated
           } else {
             setIsAuthenticated(false); // User is not authenticated
           }
-        }catch (error) {
+        } catch (error) {
           // Handle authentication errors (e.g., token validation failed)
           console.log("user is not authenticated");
           console.log(error);
@@ -63,7 +63,9 @@ function App() {
 
     if (isAuthenticated === null) {
       // Waiting for authentication check to complete
-      return <p>Loading...</p>;
+      return <div class="flex items-center justify-center h-screen">
+        <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
+      </div>;
     } else if (!userInfo || isAuthenticated === false) {
       // User is not authenticated
       return <Navigate to="/login" />;
@@ -84,7 +86,9 @@ function App() {
 
 
   if (status === StatusCode.LOADING) {
-    return <p>Loading...</p>;
+    return <div className="flex items-center justify-center h-screen">
+      <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600"></div>
+    </div>;
   }
 
   if (status === StatusCode.ERROR) {
@@ -104,7 +108,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Siginup />} />
-          <Route  path="/checkout" element={<Checkout/>}/>
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<Error />} />
           <Route path="Dashboard" element={
