@@ -87,11 +87,7 @@ export default function Products() {
             />
           ))}
         </div>
-
-      ) : (
-        <Loading />
-      )}
-
+        </div>
     </div>
   );
 }
